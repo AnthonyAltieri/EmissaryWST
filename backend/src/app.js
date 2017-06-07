@@ -26,6 +26,9 @@ const slack = slackHookInitializer(MY_SLACK_WEBHOOK_URL);
 // Initialize the express server object (app) and configure it
 const app = express();
 
+// Twilio SMS
+var client = require('twilio')('AC3129a88b960fb1e1d72b0cf4c7249da0', 'a8234b949df3feace2f31d9cf4887d86');
+
 // Set the port
 app.set('port', config.port);
 
@@ -60,6 +63,20 @@ app.use((req, res, next) => {
     } else {
         next();
     }
+});
+
+//
+app.get('/twilioSMS', function(req, res){
+    client.sendMessage({
+        to: '+16507015523',
+        from: '+14159158347',
+        body: 'Twilio SMS Test for Appointment Implementation'
+    }, function(err, data){
+        if(err){
+            console.log(err);
+        }
+        console.log(data);
+    });
 });
 
 
