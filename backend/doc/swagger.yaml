@@ -15,8 +15,14 @@ tags:
     description: Manage employees
   - name: appointments
     description: Manage appointments
+  - name: company
+    description: Manage company
   - name: forms
     description: Create and edit forms
+  - name: payment
+    description: Subscription payments
+  - name: theme
+    description: Manage theme of website
 schemes:
   - http
 paths:
@@ -663,7 +669,6 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Company'          
-            
   /forms:
     get:
       tags:
@@ -686,6 +691,57 @@ paths:
       responses:
         '400':
           description: 'Error Message, Company does not exist'
+  /payment:
+    post:
+      tags:
+        - payment
+      summary: Creates subscription for customer
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: email
+          in: query
+          description: Customer's email
+          required: true
+          type: string
+        - name: plan
+          in: query
+          description: Customer's plan choice
+          required: true
+          type: string
+        - name: source
+          in: query
+          description: stripe Token
+          type: string
+      responses:
+        '400':
+          description: 'Error Message, Could not create customer' 
+  /payment/subscription:
+    get:
+      tags:
+        - payment
+      operationId: getSubscription
+      summary: Get subscription of a customer
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: stripeCustomerID
+          in: query
+          description: Stripe Customer ID
+          required: true
+          type: string
+      responses:
+        '400':
+          description: 'Error Message, Could not find'      
+          
 definitions:
   Appointments:
     type: object
