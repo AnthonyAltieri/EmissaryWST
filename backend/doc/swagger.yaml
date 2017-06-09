@@ -740,7 +740,126 @@ paths:
           type: string
       responses:
         '400':
-          description: 'Error Message, Could not find'      
+          description: 'Error Message, Could not find'    
+  /theme:
+    post:
+      tags:
+        - theme
+      summary: Creates a theme for a user
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          schema:
+            $ref: '#definitions/Theme'
+          required: true  
+      responses:
+        '400':
+          description: 'Error Message, Could not find company'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/Theme'
+  /theme/{user_id}:
+    get:
+      tags:
+        - theme
+      summary: Gets theme by user_id
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: company or user id
+          type: integer
+          required: true
+      responses:
+        '400':
+          description: 'Error Message, Can not find'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/Theme'
+    put:
+      tags:
+        - theme
+      summary: Updates a company or user's theme
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: Appointment id
+          type: integer
+          required: true
+        - name: form_color
+          in: formData
+          required: false
+          type: string
+          description: Theme of form's color
+        - name: background_img
+          in: formData
+          required: false
+          type: string
+          description: Theme's background image
+        - name: displayPhone
+          in: formData
+          required: false
+          type: string
+          description: Theme's display phone
+        - name: displayClock
+          in: formData
+          required: false
+          type: string
+          description: Theme's display clock
+        - name: displaySignature
+          in: formData
+          required: false
+          type: string
+          description: Theme's display signature
+        - name: additionalComments
+          in: formData
+          required: false
+          type: string
+          description: Theme's additionalcommenets
+      responses:
+        '400':
+          description: 'Error Message, Could not Save'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/Theme'
+    delete:
+      tags:
+        - theme
+      summary: Removes company or user's theme
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: Company or user id
+          type: integer
+          required: true
+      responses:
+        '400':
+          description: 'Error Message,Could Not Find or Save'
+        '200':
+          description: 'Successful Operation'
+      
           
 definitions:
   Appointments:
