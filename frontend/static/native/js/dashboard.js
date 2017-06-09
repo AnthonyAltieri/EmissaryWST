@@ -60,10 +60,14 @@ $(document).ready(function(){
                 break;
               }
             }
+            console.log(visitorList[i].appointmentTime);
+            if (visitorList[i].appointmentTime == undefined) {
+              visitorList[i].appointmentTime = "Not today";
+            }
           }
           else{
       
-            visitorList[i].appointmentTime = "None";
+            visitorList[i].appointmentTime = "No Appointment";
           }
         }
 

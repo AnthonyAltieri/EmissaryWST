@@ -8,15 +8,15 @@ var bodyparser = require('body-parser');
 var twilio = require('twilio');
 
 // Twilio Credentials 
-var accountSid = 'ACb70bc33c96bfc11985cbd1cf76a239ef'; 
-var authToken = '452f1f1d86c183097a96db390ca55590'; 
+var accountSid = 'AC09788df6478ec798673fddaa4236ec4c';
+var authToken = 'd12636a544c81c07c7441d9795faa624';
  
 //require the Twilio module and create a REST client 
 var client = require('twilio')(accountSid, authToken); 
 var exports = module.exports;
 
-// sendText: Send text message to employees when visitorList is checked in.
-exports.sendText = function(patientName, employees, done) {
+// sendText: Send text message to employees when a visitor makes an appointment
+module.exports.sendText = function(patientName, employees, done) {
   if(employees === null || (employees.length <= 0)) {
     if(done) return done();
   }
@@ -40,7 +40,7 @@ exports.sendText = function(patientName, employees, done) {
     // create text message object that will be sent
     client.messages.create({  
       to: employees[index].phone_number,
-      from: "+16266711727",    
+      from: "+15014062414",
       body:'Your visitorList ' + patientName + ' is ready.'
     }, callback(index));
   }

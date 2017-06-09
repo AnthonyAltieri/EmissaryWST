@@ -12,17 +12,17 @@ const paths = {
 };
 
 // Gulp task to compile ES2017 code to ES2015 code with babel
-gulp.task('backend:babel', () => gulp
+gulp.task('backend:babel', function() { return gulp
   .src(paths.backend.es7)
   .pipe(sourceMaps.init())
   .pipe(babel({ presets: ['es2015'] }))
   .pipe(sourceMaps.write('.', { sourceRoot: paths.backend.sourceRoot }))
   .pipe(gulp.dest(paths.backend.dist))
-);
+});
 
 // Gulp task to watch for changes to any javascript files in source, when
 // they do change it will compile the changed code
-gulp.task('backend:watch', () => {
+gulp.task('backend:watch', function()  {
   gulp.start('backend:babel');
   gulp.watch(paths.backend.es7, ['backend:babel'])
 });

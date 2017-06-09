@@ -15,7 +15,10 @@ var ADD_VISITOR = "add_visitor";
 var NOTIFY_ERROR = "notify_error";
 
 var VisitorListCtr = require('../routes/visitorList/visitorList.controller');
+var Employee = require('../models/Employee');
 var Company = require('../models/Company');
+
+
 /********** Socket IO Module **********/
 exports.createServer = function(io_in) {
     io = io_in;
@@ -87,16 +90,30 @@ exports.createServer = function(io_in) {
 
         //require the params to be set with info of the visitor
         socket.on(ADD_VISITOR, function(data) {
-            console.log("ADDING VISITOR");
-            console.log(data);
-            console.log(data.company_id);
+
             var company_id = data.company_id;
             VisitorListCtr.create(data, function(err_msg, result){
+                console.log("callback from visitor list create");
                 if(err_msg){
                     console.log("error");
                     exports.notifyError(company_id, {error: err_msg});
                 }
                 else {
+
+                    Employee.find({company_id : data.company_id}, { password: 0}, function(err, result) {
+                      var Text = require('../notification/text');
+                      Text.sendText(data.first_name + data.last_name, result, false);
+
+                      Appointment.findById(the_appointment._id, function(err, a) {
+                         if(err || !a)
+                            return res.status(401).json({error: "Could Not Find"});
+                        var date = new Date();
+                        a.reminder_time = date;
+                    });
+
+                      var Email = require('../notification/email');
+                    });
+
                     exports.notifyNewList(company_id, result);
                 }
             });
