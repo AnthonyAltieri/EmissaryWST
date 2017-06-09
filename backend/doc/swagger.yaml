@@ -9,7 +9,7 @@ info:
 host: team1-emissary.herokuapp.com
 basePath: /index
 tags:
-  - name: visitors
+  - name: visitorList
     description: Manage visitors
   - name: employees
     description: Manage employees
@@ -20,11 +20,60 @@ tags:
 schemes:
   - http
 paths:
-  /visitors:
+  /visitorList/createReq:
+    post:
+      tags:
+        - visitorList
+      operationId: createReq
+      summary: Adds a visitor to the visitor list of a company
+      description: Get visitor information to add to visitor list of a company
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body 
+          description: Visitor object that needs to be added to  the visitor list of a company
+          required: true
+          schema:
+            $ref: '#definitions/Visitor'
+      responses:
+        '400':
+          description: 'Error Message, Company does not exist'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/VisitorList'
+  /visitorList/create:
+    post:
+      tags:
+        - visitorList
+      operationId: create
+      summary: Adds a visitor to the visitor list of a company
+      description: Get visitor information to add to visitor list of a company
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body 
+          description: Visitor object that needs to be added to  the visitor list of a company
+          required: true
+          schema:
+            $ref: '#definitions/Visitor'
+      responses:
+        '400':
+          description: 'Error Message, Company does not exist'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/VisitorList'          
+  /visitorList/companyVisitorListReq:
     get:
       tags:
-        - visitors
-      summary: Get the visitors of a company
+        - visitorList
+      operationId: getCompanyVisitorListReq
+      summary: Get the visitor list of a company
       description: Use company_id to get the people visiting a company
       produces:
         - application/xml
@@ -38,6 +87,123 @@ paths:
       responses:
         '400':
           description: 'Error Message, Company does not exist'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/VisitorList'
+  /visitorList/companyVisitorList:          
+    get:
+      tags:
+        - visitorList
+      operationId: getCompanyVisitorList
+      summary: Logic for getting the visitor list of a company
+      description: Use company_id to get the people visiting a company
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: company_id
+          in: query
+          description: company_id to get visitors of
+          required: true
+          type: integer
+      responses:
+        '400':
+          description: 'Error Message, Please send company id, Getting Visitor List, or Error in Saving'
+  /visitorList/deleteVisitorReq:
+    delete:
+      tags:
+        - visitorList
+      operationId: deleteVisitorReq
+      summary: Deletes a visitor from the  visitor list of a company
+      description: Use company_id and visitor_id to delete visitors from a list to the company
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: company_id
+          in: query
+          description: company_id to get visitors of
+          required: true
+          type: integer
+        - name: visitor_id
+          in: query
+          description: visitor_id of a visitor
+          required: true
+          type: integer
+      responses:
+        '400':
+          description: "Error Message, Please send company id, Please send visitorList id, or Can't update List"
+        '200':
+          description: 'Successful Operation'
+  /visitorList/deleteVisitor:
+    delete:
+      tags:
+        - visitorList
+      operationId: deleteVisitor
+      summary: Deletes a visitor from the  visitor list of a company
+      description: Use company_id and visitor_id to delete visitors from a list to the company
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: company_id
+          in: query
+          description: company_id to get visitors of
+          required: true
+          type: integer
+        - name: visitor_id
+          in: query
+          description: visitor_id of a visitor
+          required: true
+          type: integer
+      responses:
+        '400':
+          description: "Error Message, Please send company id, Please send visitorList id, or Can't update List"
+        '200':
+          description: 'Successful Operation'        
+  /visitorList/deleteReq:
+    delete:
+      tags:
+        - visitorList
+      operationId: deleteReq
+      summary: Deletes the visitor list of a company
+      description: Use list_id to delete the visitor list of a company
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: list_id
+          in: query
+          description: list_id to get visitor list
+          required: true
+          type: integer
+      responses:
+        '400':
+          description: "Error Message, Please send list id, PCan;t find company, or Can't save"
+        '200':
+          description: 'Successful Operation'  
+  /visitorList/delete:
+    delete:
+      tags:
+        - visitorList
+      operationId: delete
+      summary: Deletes the visitor list of a company
+      description: Use list_id to delete the visitor list of a company
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: list_id
+          in: query
+          description: list_id to get visitor list
+          required: true
+          type: integer
+      responses:
+        '400':
+          description: "Error Message, Please send list id, PCan;t find company, or Can't save"
+        '200':
+          description: 'Successful Operation'         
   /employees:
     post:
       tags:
@@ -184,10 +350,6 @@ paths:
       responses:
         '400':
           description: 'Error Message, Emploee does not exist'
-        '200':
-          description: 'Successful Operation'
-          schema:
-            $ref: '#definitions/Employee' 
   /employees/login:
     get:
       tags: 
