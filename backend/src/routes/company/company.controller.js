@@ -41,8 +41,14 @@ module.exports.template.create = function(req, res) {
 
     company.save(function(err, c) {
         if(err) {
+            console.log("error saving company")
+            console.log(err)
             return res.status(400).json({error: "Could Not Save"});
         }
+
+        console.log("company public info")
+        console.log(showCompanyPublicInfo(c))
+        console.log(c)
         return res.status(200).json(showCompanyPublicInfo(c));
     });
 };
@@ -70,6 +76,16 @@ module.exports.template.get = function(req, res) {
         return res.status(200).json(showCompanyPublicInfo(company));
     });
 };
+
+module.exports.template.getCompanyId = function (req, res) {
+    console.log("get company id");
+    Company.findOne({name: req.company_name}, function(err, company) {
+        if(err)
+            return res.status(400).json({error: "No company by that name found"})
+        console.log(showCompanyPublicInfo(company))
+        return res.status(200).json(showCompanyPublicInfo(company));
+    })
+}
 
 /* update the company info */
 module.exports.template.update = function(req, res){
