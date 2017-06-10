@@ -11,9 +11,9 @@ basePath: /index
 tags:
   - name: visitorList
     description: Manage visitors
-  - name: employees
+  - name: employee
     description: Manage employees
-  - name: appointments
+  - name: appointment
     description: Manage appointments
   - name: company
     description: Manage company
@@ -26,7 +26,7 @@ tags:
 schemes:
   - http
 paths:
-  /visitorList/createReq:
+  /visitorList/:
     post:
       tags:
         - visitorList
@@ -50,31 +50,7 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/VisitorList'
-  /visitorList/create:
-    post:
-      tags:
-        - visitorList
-      operationId: create
-      summary: Adds a visitor to the visitor list of a company
-      description: Get visitor information to add to visitor list of a company
-      produces:
-        - application/xml
-        - application/json
-      parameters:
-        - in: body
-          name: body 
-          description: Visitor object that needs to be added to  the visitor list of a company
-          required: true
-          schema:
-            $ref: '#definitions/Visitor'
-      responses:
-        '400':
-          description: 'Error Message, Company does not exist'
-        '200':
-          description: 'Successful Operation'
-          schema:
-            $ref: '#definitions/VisitorList'          
-  /visitorList/companyVisitorListReq:
+  /visitorList/company/{company_id}:
     get:
       tags:
         - visitorList
@@ -86,10 +62,10 @@ paths:
         - application/json
       parameters:
         - name: company_id
-          in: query
+          in: path
           description: company_id to get visitors of
           required: true
-          type: integer
+          type: string
       responses:
         '400':
           description: 'Error Message, Company does not exist'
@@ -97,26 +73,7 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/VisitorList'
-  /visitorList/companyVisitorList:          
-    get:
-      tags:
-        - visitorList
-      operationId: getCompanyVisitorList
-      summary: Logic for getting the visitor list of a company
-      description: Use company_id to get the people visiting a company
-      produces:
-        - application/xml
-        - application/json
-      parameters:
-        - name: company_id
-          in: query
-          description: company_id to get visitors of
-          required: true
-          type: integer
-      responses:
-        '400':
-          description: 'Error Message, Please send company id, Getting Visitor List, or Error in Saving'
-  /visitorList/deleteVisitorReq:
+  /visitorList/company/{company_id}/visitor/{visitor_id}:
     delete:
       tags:
         - visitorList
@@ -128,47 +85,21 @@ paths:
         - application/json
       parameters:
         - name: company_id
-          in: query
+          in: path
           description: company_id to get visitors of
           required: true
-          type: integer
+          type: string
         - name: visitor_id
-          in: query
+          in: path
           description: visitor_id of a visitor
           required: true
-          type: integer
+          type: string
       responses:
         '400':
           description: "Error Message, Please send company id, Please send visitorList id, or Can't update List"
         '200':
           description: 'Successful Operation'
-  /visitorList/deleteVisitor:
-    delete:
-      tags:
-        - visitorList
-      operationId: deleteVisitor
-      summary: Deletes a visitor from the  visitor list of a company
-      description: Use company_id and visitor_id to delete visitors from a list to the company
-      produces:
-        - application/xml
-        - application/json
-      parameters:
-        - name: company_id
-          in: query
-          description: company_id to get visitors of
-          required: true
-          type: integer
-        - name: visitor_id
-          in: query
-          description: visitor_id of a visitor
-          required: true
-          type: integer
-      responses:
-        '400':
-          description: "Error Message, Please send company id, Please send visitorList id, or Can't update List"
-        '200':
-          description: 'Successful Operation'        
-  /visitorList/deleteReq:
+  /visitorList/{list_id}:
     delete:
       tags:
         - visitorList
@@ -180,42 +111,22 @@ paths:
         - application/json
       parameters:
         - name: list_id
-          in: query
+          in: path
           description: list_id to get visitor list
           required: true
           type: integer
       responses:
         '400':
-          description: "Error Message, Please send list id, PCan;t find company, or Can't save"
+          description: "Error Message, Please send list id, Can't find company, or Can't save"
         '200':
           description: 'Successful Operation'  
-  /visitorList/delete:
-    delete:
-      tags:
-        - visitorList
-      operationId: delete
-      summary: Deletes the visitor list of a company
-      description: Use list_id to delete the visitor list of a company
-      produces:
-        - application/xml
-        - application/json
-      parameters:
-        - name: list_id
-          in: query
-          description: list_id to get visitor list
-          required: true
-          type: integer
-      responses:
-        '400':
-          description: "Error Message, Please send list id, PCan;t find company, or Can't save"
-        '200':
-          description: 'Successful Operation'         
-  /employees:
+  /employee:
     post:
       tags:
-        - employees
+        - employee
       summary: Adds an employee to the company roster
       description: Add an employee
+      operationId: insert
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -235,18 +146,19 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Employee'
-  /employees/getAllEmployees:
+  /employee/company/{company_id}:
     get:
       tags:
-        - employees
+        - employee
       summary: Retrieves all employees in company roster
       description: Get all employees
+      operationId: getAllEmployees
       produces:
         - application/xml
         - application/json
       parameters:
         - name: company_id
-          in: query
+          in: path
           description: company_id to get employees of
           required: true
           type: integer
@@ -258,10 +170,10 @@ paths:
           schema: 
             $ref: '#definitions/Employee'
   
-  /employees/{employeeid}:
+  /employee/{employee_id}:
     get:
       tags:
-        - employees
+        - employee
       summary: Gets employee information in a company roster by id
       description: Gets employee's information
       operationId: getById
@@ -271,7 +183,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: employeeid
+        - name: employee_id
           in: path
           description: Employee id
           type: integer
@@ -285,7 +197,7 @@ paths:
             $ref: '#definitions/Employee'
     put:
       tags:
-        - employees
+        - employee
       summary: Updates employee information in a company roster
       description: Updates an employee's information
       operationId: update
@@ -295,7 +207,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: employeeid
+        - name: employee_id
           in: path
           description: Employee id
           type: integer
@@ -339,7 +251,7 @@ paths:
             $ref: '#definitions/Employee'
     delete:
       tags:
-        - employees
+        - employee
       summary: Removes an employee's information from a company roster
       description: Updates an employee's information
       consumes:
@@ -348,7 +260,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: employeeid
+        - name: employee_id
           in: path
           description: Employee id
           type: integer
@@ -356,10 +268,10 @@ paths:
       responses:
         '400':
           description: 'Error Message, Emploee does not exist'
-  /employees/login:
+  /employee/login:
     get:
       tags: 
-        - employees
+        - employee
       summary: Logs employee into the system
       produces:
         - application/xml
@@ -389,13 +301,13 @@ paths:
               type: string
               format: date-time
               description: date in UTC when token expires
-  /appointments:
+  /appointment:
     post:
       tags:
-        - appointments
+        - appointment
       summary: Adds an appointment to the company
       description: Add an appointment
-      operationId: addAppointment
+      operationId: create
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -414,18 +326,19 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Employee'
-  /appointments/getAll:
+  /appointment/company/{company_id}:
     get:
       tags:
-        - appointments
+        - appointment
       summary: Retrieves all appointments in company 
       description: Get all appointments
+      operationId: getAll
       produces:
         - application/xml
         - application/json
       parameters:
         - name: company_id
-          in: query
+          in: path
           description: Company id of where appointments are registered
           required: true
           type: integer
@@ -436,19 +349,20 @@ paths:
           description: 'Successful Operation'
           schema: 
             $ref: '#definitions/Appointments'   
-  /appointments/{appointmentid}:
+  /appointment/{appointment_id}:
     get:
       tags:
-        - appointments
+        - appointment
       summary: Gets appointment information in a company roster by id
       description: Gets appointment information
+      operationId: get
       consumes:
         - application/x-www-form-urlencoded
       produces:
         - application/xml
         - application/json
       parameters:
-        - name: appointmentid
+        - name: appointment_id
           in: path
           description: Appointment id
           type: integer
@@ -462,7 +376,7 @@ paths:
             $ref: '#definitions/Appointments'
     put:
       tags:
-        - employees
+        - appointment
       summary: Updates appointment information in a company roster
       description: Updates an appointment's information
       consumes:
@@ -471,7 +385,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: appointmentid
+        - name: appointment_id
           in: path
           description: Appointment id
           type: integer
@@ -510,7 +424,7 @@ paths:
             $ref: '#definitions/Appointments'
     delete:
       tags:
-        - appointments
+        - appointment
       summary: Removes an appointments information from a company roster
       description: Deletes an appointment
       consumes:
@@ -519,7 +433,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: appointmentid
+        - name: appointment_id
           in: path
           description: Appointment id
           type: integer
@@ -555,7 +469,7 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Company'
-  /company/{companyid}:
+  /company/{company_id}:
     get:
       tags:
         - company
@@ -567,7 +481,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: companyid
+        - name: company_id
           in: path
           description: Company id
           type: integer
@@ -590,7 +504,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: companyid
+        - name: company_id
           in: path
           description: Company id
           type: integer
@@ -628,7 +542,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: companyid
+        - name: company_id
           in: path
           description: Company id
           type: integer
@@ -640,7 +554,7 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Company' 
-  /company/reset:
+  /company/setting/{user_email}:
     put:
       tags:
         - company
@@ -652,19 +566,30 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: email
-          in: formData
-          required: true
-          type: string
-          description: A company user's email. 
-        - name: password
-          in: formData
-          required: true
+        - name: user_email
+          in: path
           type: string
           description: A company user's email.
+          required: true
+        - name: newemail
+          in: formData
+          type: string
+          description: A company user's new email. 
+        - name: newpassword
+          in: formData
+          type: string
+          description: A company user's new password.
+        - name: new_company_name  
+          in: formData
+          type: string
+          description: A company's new name
+        - name: new_company_phone_number
+          in: formData
+          type: string
+          description: A company's new phone number
       responses:
         '400':
-          description: 'Error Message, Wrong Password orCan not Save'
+          description: 'Error Message, Wrong Password or Can not Save'
         '200':
           description: 'Successful Operation'
           schema:
@@ -691,7 +616,7 @@ paths:
       responses:
         '400':
           description: 'Error Message, Company does not exist'
-  /payment:
+  /payment/subscription:
     post:
       tags:
         - payment
@@ -720,7 +645,7 @@ paths:
       responses:
         '400':
           description: 'Error Message, Could not create customer' 
-  /payment/subscription:
+  /payment/subscription/{stripeCustomerID}:
     get:
       tags:
         - payment
@@ -734,14 +659,14 @@ paths:
         - application/json
       parameters:
         - name: stripeCustomerID
-          in: query
+          in: path
           description: Stripe Customer ID
           required: true
           type: string
       responses:
         '400':
           description: 'Error Message, Could not find'    
-  /theme:
+  /theme/{user_id}/theme:
     post:
       tags:
         - theme
@@ -752,6 +677,11 @@ paths:
         - application/xml
         - application/json
       parameters:
+        - name: user_id
+          in: path
+          type: string
+          description: "A company's or user's id"
+          required: true
         - in: body
           name: body
           schema:
@@ -764,7 +694,6 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Theme'
-  /theme/{user_id}:
     get:
       tags:
         - theme
@@ -859,8 +788,7 @@ paths:
           description: 'Error Message,Could Not Find or Save'
         '200':
           description: 'Successful Operation'
-      
-          
+        
 definitions:
   Appointments:
     type: object
