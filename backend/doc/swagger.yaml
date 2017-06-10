@@ -883,7 +883,7 @@ definitions:
       provider_name:
         type: string
       company_id:
-        $ref: '#definitions/Company'
+        type: string
   Company:
     type: object
     required:
@@ -924,7 +924,7 @@ definitions:
       role:
         type: string
       company_id:
-        $ref: '#definitions/Company'
+        type: string
   Theme:
     type: object
     properties:
@@ -960,7 +960,7 @@ definitions:
         type: string
       checkin_time:
         type: string
-        default: Date.now
+        format: date
       appointments:
         $ref: '#definitions/Appointments'
       additional_info:
@@ -972,7 +972,7 @@ definitions:
       - company_id
     properties:
       company_id:
-        $ref: '#definitions/Company'
+        type: string
       visitors:
         $ref: '#definitions/Visitor'
         
