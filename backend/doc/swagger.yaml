@@ -594,13 +594,12 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Company'          
-  /forms:
-    get:
+  /template:
+    post:
       tags:
         - forms
       summary: Forms creater and editor
       description: ''
-      operationId: getForm
       consumes:
         - application/json
         - application/xml
@@ -608,14 +607,44 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - in: query
-          name: company_id
+        - in: body
+          name: body
+          description: Company of form to retrieve
+          required: true
+          schema:
+            $ref: '#definitions/Form'
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: There was an error finding the template form.
+  /forms/{company_id}:
+    get:
+      tags:
+        - forms
+      summary: Forms creater and editor
+      description: ''
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: company_id
+          in: path
           description: Company of form to retrieve
           required: true
           type: integer
       responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
         '400':
-          description: 'Error Message, Company does not exist'
+          description: There was an error finding the template form.
   /payment/subscription:
     post:
       tags:
@@ -901,4 +930,32 @@ definitions:
     properties:
       company_id:
         type: string
-        
+  Form:
+    type: object
+    required:
+      - _admin_id
+      - template
+    properties:
+      _admin_id:
+        type: string
+      template:
+        type: object
+  SubmittedForm:
+    type: object
+    required:
+      - _admin_id
+    properties:
+      _admin_id:
+        type: string
+      form:
+        type: object
+      firstName:
+        type: string
+      lastName:
+        type: string
+      patientEmail:
+        type: string
+      date:
+        type: string
+        format: date
+      
