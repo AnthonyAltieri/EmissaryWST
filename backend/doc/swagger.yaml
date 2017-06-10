@@ -161,7 +161,7 @@ paths:
           in: path
           description: company_id to get employees of
           required: true
-          type: integer
+          type: string
       responses:
         '400':
           description: 'Error Message, Can not find'
@@ -269,7 +269,7 @@ paths:
         '400':
           description: 'Error Message, Emploee does not exist'
   /employee/login:
-    get:
+    post:
       tags: 
         - employee
       summary: Logs employee into the system
@@ -341,7 +341,7 @@ paths:
           in: path
           description: Company id of where appointments are registered
           required: true
-          type: integer
+          type: string
       responses:
         '400':
           description: 'Error Message, Can not find'
@@ -484,7 +484,7 @@ paths:
         - name: company_id
           in: path
           description: Company id
-          type: integer
+          type: string
           required: true
       responses:
         '400':
@@ -507,7 +507,7 @@ paths:
         - name: company_id
           in: path
           description: Company id
-          type: integer
+          type: string
           required: true
         - name: email
           in: formData
@@ -545,7 +545,7 @@ paths:
         - name: company_id
           in: path
           description: Company id
-          type: integer
+          type: string
           required: true
       responses:
         '400':
@@ -594,7 +594,7 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Company'          
-  /template:
+  /form/template:
     post:
       tags:
         - forms
@@ -608,7 +608,7 @@ paths:
         - application/json
       parameters:
         - in: body
-          name: body
+          name: template
           description: Company of form to retrieve
           required: true
           schema:
@@ -620,12 +620,67 @@ paths:
             $ref: '#definitions/Theme'
         '400':
           description: There was an error finding the template form.
-  /forms/{company_id}:
+    put:
+      tags:
+        - forms
+      summary: Updates form
+      description: ''
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: template_id
+          in: query
+          description: template id
+          required: true
+          type: string
+        - in: body
+          name: template
+          description: Company of form to retrieve
+          required: true
+          schema:
+            $ref: '#definitions/Form'
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: There was an error updating the template.   
+  /form/template/{template_id}:
+    delete:
+      tags: 
+        - forms
+      summary: Deletes a form template
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: template_id
+          in: path
+          description: Template id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: Need template id or There was a problem removing the form tmeplate.    
+  /form/template/company/{company_id}:
     get:
       tags:
         - forms
-      summary: Forms creater and editor
+      summary: Find form template by a company's id
       description: ''
+      operationId: findByCompanyId
       consumes:
         - application/json
         - application/xml
@@ -637,7 +692,7 @@ paths:
           in: path
           description: Company of form to retrieve
           required: true
-          type: integer
+          type: string
       responses:
         '200':
           description: Successful Operation
@@ -645,6 +700,115 @@ paths:
             $ref: '#definitions/Theme'
         '400':
           description: There was an error finding the template form.
+  /form/template/{admin_id}:
+    get:
+      tags:
+        - forms
+      summary: Find form template by an admin's id
+      description: ''
+      operationId: findByAdminId
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: admin_id
+          in: path
+          description: Admin of form to retrieve
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: There was an error finding the template form.  
+  /form/visitorList/:
+    post:
+      tags:
+        - forms
+      summary: Create the new form for visitors to fill out
+      description: ''
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: form
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SubmittedForm'
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: An error occured while saving the form.   
+    get:
+      tags:
+        - forms
+      summary: Finds a submitted form by a visitor through their first name, last name, or email
+      description: ''
+      operationId: findByPatientInfo
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: firstname
+          in: query
+          required: true
+          type: string
+        - name: lastname
+          in: query
+          required: true
+          type: string
+        - name: patientEmail
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: You must specify either both first and last name or email or An error occured while finding vistorList forms. 
+  /form/visitorList/{form_id}:
+    get:
+      tags:
+        - forms
+      summary: Finds a submitted form by a visitor through form id
+      description: ''
+      operationId: findById
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: form_id
+          in: path
+          required: true
+          type: string
+
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: An error occured while finding visitorList form.   
   /payment/subscription:
     post:
       tags:
@@ -841,6 +1005,9 @@ definitions:
         type: string
       company_id:
         type: string
+      is_checkedin:
+        type: boolean
+        default: false
   Company:
     type: object
     required:
@@ -958,4 +1125,3 @@ definitions:
       date:
         type: string
         format: date
-      
