@@ -951,7 +951,7 @@ definitions:
       - checkin_time
     properties:
       company_id:
-        $ref: '#definitions/Company'
+        type: string
       first_name:
         type: string
       last_name:
@@ -973,6 +973,4 @@ definitions:
     properties:
       company_id:
         type: string
-      visitors:
-        $ref: '#definitions/Visitor'
         
