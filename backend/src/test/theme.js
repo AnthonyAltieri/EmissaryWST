@@ -62,15 +62,14 @@ describe('Theme Settings Model', function() {
         });
     });
 
-    /*it('should remove(DELETE) theme setting', function(done) {
+    it('should remove(DELETE) theme setting', function(done) {
         Theme.remove({
             user_id: "test"
         }, function(err, theme) {
             if (err) return done(err);
-            theme.should.equal(1);
             done();
         });
-    });*/
+    });
 
 });
 

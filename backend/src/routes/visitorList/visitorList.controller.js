@@ -124,12 +124,11 @@ exports.create = function(param, callback){
         first_name: first_name,
         last_name: last_name,
         phone_number: phone_number,
-        date: {$gte:today, $lt: tomorrow},
         is_checkedin: false
        
     };
 
-    Appointment.find(query).sort({date: 1}).exec(function(err, appointments){
+    Appointment.find(query).sort({date: -1}).exec(function(err, appointments){
         console.log(appointments);
         var applist = [];
         var the_appointment = undefined;

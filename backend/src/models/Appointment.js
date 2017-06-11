@@ -19,7 +19,6 @@ var appointmentSchema = mongoose.Schema({
     provider_name: {type: String, required: true},
     company_id: { type: Schema.Types.ObjectId, ref: 'Company', required: true },
     is_checkedin: {type: Boolean, default: false },
-    reminder_time: { type: Date }
 });
 
 module.exports = mongoose.model('appointment', appointmentSchema);

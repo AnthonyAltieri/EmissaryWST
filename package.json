@@ -9,8 +9,7 @@
   "author": "Anthony Altieri (2.0.0), Eduardo Aguilar (1.0.0)",
   "scripts": {
     "start": "gulp backend:babel && nodemon backend/dist/app.js",
-    "test": "echo hi",
-    "test-real": "gulp test:server",
+    "test": "gulp test:server",
     "watch-frontend": "gulp frontend:combined",
     "watch-backend": "gulp backend:watch",
     "build-backend": "gulp backend:babel"
@@ -26,7 +25,6 @@
     "babel-preset-stage-3": "^6.24.1",
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.10.1",
-    "bower": "1.3.12",
     "bson": "^1.0.4",
     "chai": "1.10.0",
     "config": "^1.26.1",
@@ -59,7 +57,6 @@
     "jshint-stylish": "1.0.1",
     "jwt-simple": "0.2.0",
     "lodash": "4.0.0",
-    "main-bower-files": "2.5.0",
     "mongoose": "4.1.0",
     "mongoose-encryption": "0.13.0",
     "morgan": "1.5.1",

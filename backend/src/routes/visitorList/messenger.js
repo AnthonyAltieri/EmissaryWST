@@ -2,7 +2,7 @@
  * Created by abbas on 5/27/17.
  */
 var request = require('request');
-var config = require('config');
+var config = require('./../../config/config');
 var PAGE_ACCESS_TOKEN = 'EAAFZCV04KRhQBAC6L9qY38TrtizoGSYx865eh9JYRKKqzGKkZBSd0MHf46RO7ZA4sDMpedyuTFRQpCb9FU2t4xCxHpzc01mX3cDK9LBdisXIrJXlmiwbJg6tNAPhZCWCQkHWgEN0YzJ3jN3BWF8wQpNxD2tgLyUqSQ3lSZA0NfQZDZD';
 var othertoken = 'abcd12345';
 var userState = {};

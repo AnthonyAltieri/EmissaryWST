@@ -104,15 +104,7 @@ exports.createServer = function(io_in) {
                       var Text = require('../notification/text');
                       Text.sendText(data.first_name + data.last_name, result, false);
 
-                      Appointment.findById(the_appointment._id, function(err, a) {
-                         if(err || !a)
-                            return res.status(401).json({error: "Could Not Find"});
-                        var date = new Date();
-                        a.reminder_time = date;
-                    });
-
                       var Email = require('../notification/email');
-                      Email.sendEmail(data.first_name + data.last_name, result, false);
                     });
 
                     exports.notifyNewList(company_id, result);

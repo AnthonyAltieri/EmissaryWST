@@ -10,7 +10,6 @@ router.get('/:id', 			controller.template.get);
 router.get('/', 			controller.template.getAll);
 router.put('/:id',          controller.template.update);
 router.delete('/:id',       controller.template.delete);
-router.get('/name/:id', controller.template.getCompanyId);
 
 router.put("/setting/:user", 	controller.template.resetCredentials);
 
