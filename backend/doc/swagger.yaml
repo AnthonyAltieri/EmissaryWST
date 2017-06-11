@@ -469,6 +469,36 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Company'
+    get:
+      tags:
+        - company
+      summary: Gets all company information
+      description: Gets all companies 
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: credit_card_number
+          in: query
+          description: company's credit card number
+          type: boolean
+          required: true
+          default: false
+        - name: expiration_date
+          in: query
+          description: expiration date of company's creditcard number
+          type: boolean
+          required: true
+          default: false
+      responses:
+        '400':
+          description: 'Error Message'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/Company'        
   /company/{company_id}:
     get:
       tags:
@@ -1081,16 +1111,22 @@ definitions:
         type: string
       form_color:
         type: string
+        default: default
       background_img:
         type: string
+        default: default
       displayPhone:
         type: boolean
+        default: false
       displayClock:
         type: boolean
+        default: false
       displaySignature:
         type: boolean
+        default: false
       additionalComments:
         type: boolean
+        default: false
   Visitor:
     type: object
     required:
