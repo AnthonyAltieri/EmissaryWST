@@ -700,7 +700,7 @@ paths:
             $ref: '#definitions/Theme'
         '400':
           description: There was an error finding the template form.
-  /form/template/{admin_id}:
+  /form/template/{_admin_id}:
     get:
       tags:
         - forms
@@ -714,7 +714,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: admin_id
+        - name: _admin_id
           in: path
           description: Admin of form to retrieve
           required: true
@@ -726,6 +726,31 @@ paths:
             $ref: '#definitions/Theme'
         '400':
           description: There was an error finding the template form.  
+    post:
+      tags:
+        - forms
+      summary: Create or Update form template by an admin's id
+      description: ''
+      operationId: sendByAdminId
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: _admin_id
+          in: path
+          description: Admin of form to retrieve
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation, if template doesn't exist createWithAdminId else updateWithAdminId
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: There was an error finding the template form.        
   /form/visitorList/:
     post:
       tags:
