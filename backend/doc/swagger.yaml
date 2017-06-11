@@ -1122,6 +1122,9 @@ definitions:
     properties:
       company_id:
         type: string
+      visitors:
+        type: array
+        $ref: '#definitions/Visitor'
   Form:
     type: object
     required:
