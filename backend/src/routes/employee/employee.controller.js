@@ -1,7 +1,7 @@
 'use strict';
 import crypto from 'crypto';
 
-/*
+/**
  * This module is meant to house all of the API
  * routes that pertain to users
  */
@@ -19,6 +19,12 @@ export function passwordHash(password = '') {
 var Employee = require('../../models/Employee');
 var Company = require('../../models/Company');
 
+/**
+* Logs in an employee
+* @param req - a request object that contains an employee's email and password
+* @param res - a response object that either returns an error message or logs the employee into the system
+*
+*/
 exports.login = function(req, res) {
     Employee.findOne(
       {email:req.body.email, password: passwordHash(req.body.password) },
@@ -32,6 +38,11 @@ exports.login = function(req, res) {
     });
 };
 
+/**
+* Retrieves all of the employees that have an account for the company
+* @param req - a request object that contains the company's id
+* @param res - a response object that either returns an error message or returns the list of employees at the company
+*/
 exports.getAllEmployees = function(req, res) {
   Employee.find({company_id : req.params.id}, { password: 0}, function(err, result) {
     if(err){
@@ -41,6 +52,11 @@ exports.getAllEmployees = function(req, res) {
   });
 };
 
+/**
+* Gets an employee by their employee id
+* @param req - a request object that contains the employee's id
+* @param res - a response object that either returns an error message or returns the employee
+*/
 exports.getById = function(req, res) {
    Employee.findById(req.params.id, { password: 0}, function(err, employee) {
       if(err) {
@@ -51,6 +67,11 @@ exports.getById = function(req, res) {
     });
 };
 
+/**
+* Adds an employee to a company
+* @param req - a request object that contains the company's id, employee's first name, last name, email, phone number, password, and role
+* @param res - a response object that either returns an error message or adds the employee to the company
+*/
 exports.insert = function(req, res) {
     var employee = new Employee();
     /* required info */
@@ -73,6 +94,10 @@ exports.insert = function(req, res) {
     employee.company_id = foundId;
   }
 
+/**
+* Checks if the new employee already exists 
+* @return - error indicating that user alreay exists or saves the employee to the company
+*/  
   Employee.findOne({
       first_name: employee.first_name, 
       last_name: employee.last_name,
@@ -95,7 +120,12 @@ exports.insert = function(req, res) {
   });
 };
 
-
+/**
+* Updates an employee's information
+* @param req - a request object that contains the employee's first name, last name, email. phone number, password, and role
+* @param res - a response object that either returns an error message or updates the employee's information 
+*				based on if the information has been changed
+*/
 exports.update = function(req, res) {
     Employee.findById(req.params.id, function (err, employee) {
         if(err)
@@ -119,6 +149,11 @@ exports.update = function(req, res) {
    });
 };
 
+/**
+* Deletes an employee
+* @param req - a request object that contains the employee's id
+* @param res - a response object that either returns an error message or deletes an employee from the company
+*/
 exports.delete = function(req, res) {
   console.log('mark', req.params);
   Employee.findById(req.params.id, function(err, employee) {
