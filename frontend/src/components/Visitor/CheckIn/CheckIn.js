@@ -59,7 +59,7 @@ const stateToProps = (s) => ({
   isFillingOutInformation: s.visitor.isFillingOutInformation,
 });
 const dispatchToProps = (d) => ({
-  goToWelcome: () => d(push('/')),
+  goToWelcome: () => d(push('/welcome')),
   leaveCheckIn: () => d(VisitorActions.leaveCheckIn()),
   clickCheckIn: () => d(VisitorActions.clickCheckIn()),
   clickBack: () => d(VisitorActions.clickBack()),

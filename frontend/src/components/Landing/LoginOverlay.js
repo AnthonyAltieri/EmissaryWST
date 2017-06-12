@@ -17,6 +17,8 @@ import Line from '../Dividers/Line';
 import TextInputBox from '../Input/TextInputBox';
 import colors from '../../colors';
 import { toastr } from 'react-redux-toastr';
+import { push } from 'react-router-redux';
+
 
 class LoginOverlay extends Component {
   constructor(props) {
@@ -124,12 +126,14 @@ class LoginOverlay extends Component {
               );
               if (payload.error) {
                 toastr.error('Payload error', 'Please try again later');
-                return
+                return;
               }
             } catch (e) {
               toastr.error('Server error', 'Please try again later');
+              return;
             }
-              toastr.success('Login successful!');
+            toastr.success('Login successful!');
+            this.props.navigate('/welcome')
           }}
         />
         <Line />
@@ -160,6 +164,7 @@ const dispatchToProps = d => ({
   displayEmailError: error => d(CredentialsActions.emailError(error)),
   displayPasswordError: error => d(CredentialsActions.passwordError(error)),
   passwordOk: () => d(CredentialsActions.passwordOk()),
+  navigate: (url) => d(push(url))
 });
 
 

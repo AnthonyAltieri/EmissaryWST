@@ -67,6 +67,7 @@ exports.getById = function(req, res) {
     });
 };
 
+<<<<<<< HEAD
 /**
 * Adds an employee to a company
 * @param req - a request object that contains the company's id, employee's first name, last name, email, phone number, password, and role
@@ -107,17 +108,52 @@ exports.insert = function(req, res) {
       if(!!employee) {
         return res.status(400).json({error: "User already exists"});
       }
-    }
-  );
+=======
+exports.insert = async function(req, res) {
+  var employee = new Employee();
+  employee.first_name = req.body.first_name;
+  employee.last_name = req.body.last_name;
+  employee.email = req.body.email,
+  employee.phone_number  = req.body.phone_number,
+  employee.company_name = req.body.company_name,
+  employee.password = passwordHash(req.body.password),
+  employee.role = req.body.role
 
-  employee.save(function(err, e) {
-    if(err) {
-      return res.status(400).json({error: "Can not Save"});
+  try {
+    var company = await Company.findOne({name:employee.company_name});
+    if(!company) {
+      console.log("Company not found")
+      return res.status(400).json({error: "Company not found"})
+    } else {
+      employee.company_id = company._id
+>>>>>>> refs/remotes/AnthonyAltieri/react
     }
-    var employee_json=e.toJSON();
+
+    var foundEmployee = await Employee.findOne(
+      {
+        first_name: employee.first_name, 
+        last_name: employee.last_name,
+        email: employee.email,
+        company_id: employee.company_id
+      });
+
+    if(!!foundEmployee) {
+      console.log("User already exists")
+      return res.status(400).json({error: "User already exists"})
+    }
+
+    var savedEmployee = await employee.save()
+    var employee_json=savedEmployee.toJSON();
     delete employee_json.password;
+
     return res.status(200).json(employee_json);
-  });
+  }
+  catch(e) {
+    console.log(e)
+    console.log("Database error")
+    return res.status(400).json({error: "Database error"})
+  }
+
 };
 
 /**
