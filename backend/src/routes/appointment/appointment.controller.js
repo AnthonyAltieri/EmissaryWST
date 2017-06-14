@@ -39,20 +39,19 @@ module.exports.template.create = function(req, res) {
             company_id:param.company_id,
             date:param.date
         }, function(err, appointments){
-            if(err) return res.status(400).json({error: "Could Not Find"});
+            if(err) {console.log("could not find"); return res.status(400).json({error: "Could Not Find"})};
             if(appointments.length==0) {
                 appointment.save(function (err, a) {
 
-                    console.log(err);
-
-                    if (err)
-                        return res.status(400).json({error: "Could Not Save"});
-
-
-
+                    if (err) {
+                      console.log("could not save");
+                      return res.status(400).json({error: "Could Not Save"});
+                    }
+                    console.log("should send 200")
                     return res.status(200).json(a);
                 });
             }else{
+                console.log("already created")
                 return res.status(400).json({error: "Already Created"});
             }
         });
@@ -105,12 +104,15 @@ module.exports.template.update = function(req, res){
 
 module.exports.template.delete = function(req, res){
     Appointment.findById(req.params.id, function(err, a) {
-        if(err)
-            res.status(400).json({error: "Could Not Find"});
+        if(err) {
+            console.log("Could not find")
+            return res.status(400).json({error: "Could Not Find"});
+        }
         a.remove(function(err) {
             if(err) {
-                res.status(400).json({error: "Could Not Save"});
+                return res.status(400).json({error: "Could Not Save"});
             } else {
+                console.log("remove succesful")
                 return res.status(200).json(a);
             }
         });

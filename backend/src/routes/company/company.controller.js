@@ -33,6 +33,7 @@ module.exports.template.create = function(req, res) {
     company.phone_number = req.body.phone_number;
     company.paid_time=new Date();
 
+
     //optinal info
     /*company.expiration_date=req.body.expiration_date;
     company.credit_card_number=req.body.credit_card_number;
@@ -118,16 +119,6 @@ module.exports.template.resetCredentials = function(req, res) {
     Company.findOne({email: req.params.user}, function (err, c) {
         if(err || !c)
             return res.status(400).json({error: "Could Not Find"});
-
-
-        // if the user is found but the password is wrong
-        if(!c.validPassword(req.body.password))
-            return res.status(400).send('loginMessage', 'Oops! Wrong password');
-        //update password
-
-        //upadate password
-        if (req.body.newpassword !== undefined)
-            c.password = c.generateHash(req.body.newpassword);
 
         //update email
         if (req.body.newemail !== undefined)
