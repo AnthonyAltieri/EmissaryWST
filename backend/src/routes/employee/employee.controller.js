@@ -1,4 +1,5 @@
 'use strict';
+import crypto from 'crypto';
 
 /*
  * This module is meant to house all of the API
@@ -6,15 +7,25 @@
  */
 var exports = module.exports;
 
+const SECRET = 'Powellcse112';
+export function passwordHash(password = '') {
+  const hash =  crypto.createHmac('sha256', SECRET)
+    .update(password)
+    .digest('hex');
+  return hash;
+};
+
+
 var Employee = require('../../models/Employee');
+var Company = require('../../models/Company');
 
 exports.login = function(req, res) {
-    Employee.findOne({email:req.body.email}, function(err, e) {
+    Employee.findOne(
+      {email:req.body.email, password: passwordHash(req.body.password) },
+      function(err, e) {
         if(err || !e){
           return res.status(400).send({error: "Can not Find"});
         }
-        if(!e.validPassword(req.body.password))
-          return res.status(400).send({error: "Incorrect Credentials"});
         var employee_json=e.toJSON();
         delete employee_json.password;
         return res.status(200).json(employee_json);
@@ -35,32 +46,55 @@ exports.getById = function(req, res) {
       if(err) {
           return res.status(400).json({error: "Can not Find"});
       } else {
-          console.log(employee);
           return res.status(200).json(employee);
       }
     });
 };
 
-exports.insert = function(req, res) {
-    var employee = new Employee();
+exports.insert = async function(req, res) {
+  var employee = new Employee();
+  employee.first_name = req.body.first_name;
+  employee.last_name = req.body.last_name;
+  employee.email = req.body.email,
+  employee.phone_number  = req.body.phone_number,
+  employee.company_name = req.body.company_name,
+  employee.password = passwordHash(req.body.password),
+  employee.role = req.body.role
 
-    /* required info */
-    employee.first_name = req.body.first_name;
-    employee.last_name = req.body.last_name;
-    employee.email = req.body.email,
-    employee.phone_number  = req.body.phone_number,
-    employee.company_id = req.body.company_id,
-    employee.password = employee.generateHash(req.body.password),
-    employee.role =  req.body.role
+  try {
+    var company = await Company.findOne({name:employee.company_name});
+    if(!company) {
+      console.log("Company not found")
+      return res.status(400).json({error: "Company not found"})
+    } else {
+      employee.company_id = company._id
+    }
 
-    employee.save(function(err, e) {
-        if(err) {
-            return res.status(400).json({error: "Can not Save"});
-        }
-        var employee_json=e.toJSON();
-        delete employee_json.password;
-        return res.status(200).json(employee_json);
-    });
+    var foundEmployee = await Employee.findOne(
+      {
+        first_name: employee.first_name, 
+        last_name: employee.last_name,
+        email: employee.email,
+        company_id: employee.company_id
+      });
+
+    if(!!foundEmployee) {
+      console.log("User already exists")
+      return res.status(400).json({error: "User already exists"})
+    }
+
+    var savedEmployee = await employee.save()
+    var employee_json=savedEmployee.toJSON();
+    delete employee_json.password;
+
+    return res.status(200).json(employee_json);
+  }
+  catch(e) {
+    console.log(e)
+    console.log("Database error")
+    return res.status(400).json({error: "Database error"})
+  }
+
 };
 
 
@@ -73,7 +107,7 @@ exports.update = function(req, res) {
         employee.last_name = req.body.last_name || employee.last_name;
         employee.email = req.body.email || employee.email;
         employee.phone_number = req.body.phone_number || employee.phone_number;
-        employee.password = employee.generateHash(req.body.password) || employee.password;
+        employee.password = passwordHash(req.body.password) || employee.password;
         employee.role = req.body.role || employee.role;
 
         employee.save(function(err) {
