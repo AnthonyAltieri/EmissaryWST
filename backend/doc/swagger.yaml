@@ -9,41 +9,124 @@ info:
 host: team1-emissary.herokuapp.com
 basePath: /index
 tags:
-  - name: visitors
+  - name: visitorList
     description: Manage visitors
-  - name: employees
+  - name: employee
     description: Manage employees
-  - name: appointments
+  - name: appointment
     description: Manage appointments
+  - name: company
+    description: Manage company
   - name: forms
     description: Create and edit forms
+  - name: payment
+    description: Subscription payments
+  - name: theme
+    description: Manage theme of website
 schemes:
   - http
 paths:
-  /visitors:
+  /visitorList/:
+    post:
+      tags:
+        - visitorList
+      operationId: createReq
+      summary: Adds a visitor to the visitor list of a company
+      description: Get visitor information to add to visitor list of a company
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - in: body
+          name: body 
+          description: Visitor object that needs to be added to  the visitor list of a company
+          required: true
+          schema:
+            $ref: '#definitions/Visitor'
+      responses:
+        '400':
+          description: 'Error Message, Company does not exist'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/VisitorList'
+  /visitorList/company/{company_id}:
     get:
       tags:
-        - visitors
-      summary: Get the visitors of a company
+        - visitorList
+      operationId: getCompanyVisitorListReq
+      summary: Get the visitor list of a company
       description: Use company_id to get the people visiting a company
       produces:
         - application/xml
         - application/json
       parameters:
         - name: company_id
-          in: query
+          in: path
           description: company_id to get visitors of
+          required: true
+          type: string
+      responses:
+        '400':
+          description: 'Error Message, Company does not exist'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/VisitorList'
+  /visitorList/company/{company_id}/visitor/{visitor_id}:
+    delete:
+      tags:
+        - visitorList
+      operationId: deleteVisitorReq
+      summary: Deletes a visitor from the  visitor list of a company
+      description: Use company_id and visitor_id to delete visitors from a list to the company
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: company_id
+          in: path
+          description: company_id to get visitors of
+          required: true
+          type: string
+        - name: visitor_id
+          in: path
+          description: visitor_id of a visitor
+          required: true
+          type: string
+      responses:
+        '400':
+          description: "Error Message, Please send company id, Please send visitorList id, or Can't update List"
+        '200':
+          description: 'Successful Operation'
+  /visitorList/{list_id}:
+    delete:
+      tags:
+        - visitorList
+      operationId: deleteReq
+      summary: Deletes the visitor list of a company
+      description: Use list_id to delete the visitor list of a company
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: list_id
+          in: path
+          description: list_id to get visitor list
           required: true
           type: integer
       responses:
         '400':
-          description: 'Error Message, Company does not exist'
-  /employees:
+          description: "Error Message, Please send list id, Can't find company, or Can't save"
+        '200':
+          description: 'Successful Operation'  
+  /employee:
     post:
       tags:
-        - employees
+        - employee
       summary: Adds an employee to the company roster
       description: Add an employee
+      operationId: insert
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -63,21 +146,22 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Employee'
-  /employees/getAllEmployees:
+  /employee/company/{company_id}:
     get:
       tags:
-        - employees
+        - employee
       summary: Retrieves all employees in company roster
       description: Get all employees
+      operationId: getAllEmployees
       produces:
         - application/xml
         - application/json
       parameters:
         - name: company_id
-          in: query
+          in: path
           description: company_id to get employees of
           required: true
-          type: integer
+          type: string
       responses:
         '400':
           description: 'Error Message, Can not find'
@@ -86,10 +170,10 @@ paths:
           schema: 
             $ref: '#definitions/Employee'
   
-  /employees/{employeeid}:
+  /employee/{employee_id}:
     get:
       tags:
-        - employees
+        - employee
       summary: Gets employee information in a company roster by id
       description: Gets employee's information
       operationId: getById
@@ -99,7 +183,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: employeeid
+        - name: employee_id
           in: path
           description: Employee id
           type: integer
@@ -113,7 +197,7 @@ paths:
             $ref: '#definitions/Employee'
     put:
       tags:
-        - employees
+        - employee
       summary: Updates employee information in a company roster
       description: Updates an employee's information
       operationId: update
@@ -123,7 +207,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: employeeid
+        - name: employee_id
           in: path
           description: Employee id
           type: integer
@@ -167,7 +251,7 @@ paths:
             $ref: '#definitions/Employee'
     delete:
       tags:
-        - employees
+        - employee
       summary: Removes an employee's information from a company roster
       description: Updates an employee's information
       consumes:
@@ -176,7 +260,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: employeeid
+        - name: employee_id
           in: path
           description: Employee id
           type: integer
@@ -184,14 +268,10 @@ paths:
       responses:
         '400':
           description: 'Error Message, Emploee does not exist'
-        '200':
-          description: 'Successful Operation'
-          schema:
-            $ref: '#definitions/Employee' 
-  /employees/login:
-    get:
+  /employee/login:
+    post:
       tags: 
-        - employees
+        - employee
       summary: Logs employee into the system
       produces:
         - application/xml
@@ -221,13 +301,13 @@ paths:
               type: string
               format: date-time
               description: date in UTC when token expires
-  /appointments:
+  /appointment:
     post:
       tags:
-        - appointments
+        - appointment
       summary: Adds an appointment to the company
       description: Add an appointment
-      operationId: addAppointment
+      operationId: create
       consumes:
         - application/x-www-form-urlencoded
       produces:
@@ -246,21 +326,22 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Employee'
-  /appointments/getAll:
+  /appointment/company/{company_id}:
     get:
       tags:
-        - appointments
+        - appointment
       summary: Retrieves all appointments in company 
       description: Get all appointments
+      operationId: getAll
       produces:
         - application/xml
         - application/json
       parameters:
         - name: company_id
-          in: query
+          in: path
           description: Company id of where appointments are registered
           required: true
-          type: integer
+          type: string
       responses:
         '400':
           description: 'Error Message, Can not find'
@@ -268,19 +349,20 @@ paths:
           description: 'Successful Operation'
           schema: 
             $ref: '#definitions/Appointments'   
-  /appointments/{appointmentid}:
+  /appointment/{appointment_id}:
     get:
       tags:
-        - appointments
+        - appointment
       summary: Gets appointment information in a company roster by id
       description: Gets appointment information
+      operationId: get
       consumes:
         - application/x-www-form-urlencoded
       produces:
         - application/xml
         - application/json
       parameters:
-        - name: appointmentid
+        - name: appointment_id
           in: path
           description: Appointment id
           type: integer
@@ -294,7 +376,7 @@ paths:
             $ref: '#definitions/Appointments'
     put:
       tags:
-        - employees
+        - appointment
       summary: Updates appointment information in a company roster
       description: Updates an appointment's information
       consumes:
@@ -303,7 +385,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: appointmentid
+        - name: appointment_id
           in: path
           description: Appointment id
           type: integer
@@ -342,7 +424,7 @@ paths:
             $ref: '#definitions/Appointments'
     delete:
       tags:
-        - appointments
+        - appointment
       summary: Removes an appointments information from a company roster
       description: Deletes an appointment
       consumes:
@@ -351,7 +433,7 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: appointmentid
+        - name: appointment_id
           in: path
           description: Appointment id
           type: integer
@@ -387,7 +469,37 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Company'
-  /company/{companyid}:
+    get:
+      tags:
+        - company
+      summary: Gets all company information
+      description: Gets all companies 
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: credit_card_number
+          in: query
+          description: company's credit card number
+          type: boolean
+          required: true
+          default: false
+        - name: expiration_date
+          in: query
+          description: expiration date of company's creditcard number
+          type: boolean
+          required: true
+          default: false
+      responses:
+        '400':
+          description: 'Error Message'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/Company'        
+  /company/{company_id}:
     get:
       tags:
         - company
@@ -399,10 +511,10 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: companyid
+        - name: company_id
           in: path
           description: Company id
-          type: integer
+          type: string
           required: true
       responses:
         '400':
@@ -422,10 +534,10 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: companyid
+        - name: company_id
           in: path
           description: Company id
-          type: integer
+          type: string
           required: true
         - name: email
           in: formData
@@ -460,10 +572,10 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: companyid
+        - name: company_id
           in: path
           description: Company id
-          type: integer
+          type: string
           required: true
       responses:
         '400':
@@ -472,7 +584,7 @@ paths:
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Company' 
-  /company/reset:
+  /company/setting/{user_email}:
     put:
       tags:
         - company
@@ -484,31 +596,40 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - name: email
-          in: formData
-          required: true
-          type: string
-          description: A company user's email. 
-        - name: password
-          in: formData
-          required: true
+        - name: user_email
+          in: path
           type: string
           description: A company user's email.
+          required: true
+        - name: newemail
+          in: formData
+          type: string
+          description: A company user's new email. 
+        - name: newpassword
+          in: formData
+          type: string
+          description: A company user's new password.
+        - name: new_company_name  
+          in: formData
+          type: string
+          description: A company's new name
+        - name: new_company_phone_number
+          in: formData
+          type: string
+          description: A company's new phone number
       responses:
         '400':
-          description: 'Error Message, Wrong Password orCan not Save'
+          description: 'Error Message, Wrong Password or Can not Save'
         '200':
           description: 'Successful Operation'
           schema:
             $ref: '#definitions/Company'          
-            
-  /forms:
-    get:
+  /form/template:
+    post:
       tags:
         - forms
       summary: Forms creater and editor
       description: ''
-      operationId: getForm
       consumes:
         - application/json
         - application/xml
@@ -516,14 +637,406 @@ paths:
         - application/xml
         - application/json
       parameters:
-        - in: query
-          name: company_id
+        - in: body
+          name: template
           description: Company of form to retrieve
           required: true
-          type: integer
+          schema:
+            $ref: '#definitions/Form'
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: There was an error finding the template form.
+    put:
+      tags:
+        - forms
+      summary: Updates form
+      description: ''
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: template_id
+          in: query
+          description: template id
+          required: true
+          type: string
+        - in: body
+          name: template
+          description: Company of form to retrieve
+          required: true
+          schema:
+            $ref: '#definitions/Form'
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: There was an error updating the template.   
+  /form/template/{template_id}:
+    delete:
+      tags: 
+        - forms
+      summary: Deletes a form template
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: template_id
+          in: path
+          description: Template id
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: Need template id or There was a problem removing the form tmeplate.    
+  /form/template/company/{company_id}:
+    get:
+      tags:
+        - forms
+      summary: Find form template by a company's id
+      description: ''
+      operationId: findByCompanyId
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: company_id
+          in: path
+          description: Company of form to retrieve
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: There was an error finding the template form.
+  /form/template/{_admin_id}:
+    get:
+      tags:
+        - forms
+      summary: Find form template by an admin's id
+      description: ''
+      operationId: findByAdminId
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: _admin_id
+          in: path
+          description: Admin of form to retrieve
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: There was an error finding the template form.  
+    post:
+      tags:
+        - forms
+      summary: Create or Update form template by an admin's id
+      description: ''
+      operationId: sendByAdminId
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: _admin_id
+          in: path
+          description: Admin of form to retrieve
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation, if template doesn't exist createWithAdminId else updateWithAdminId
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: There was an error finding the template form.        
+  /form/visitorList/:
+    post:
+      tags:
+        - forms
+      summary: Create the new form for visitors to fill out
+      description: ''
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: form
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/SubmittedForm'
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: An error occured while saving the form.   
+    get:
+      tags:
+        - forms
+      summary: Finds a submitted form by a visitor through their first name, last name, or email
+      description: ''
+      operationId: findByPatientInfo
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: firstname
+          in: query
+          required: true
+          type: string
+        - name: lastname
+          in: query
+          required: true
+          type: string
+        - name: patientEmail
+          in: query
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: You must specify either both first and last name or email or An error occured while finding vistorList forms. 
+  /form/visitorList/{form_id}:
+    get:
+      tags:
+        - forms
+      summary: Finds a submitted form by a visitor through form id
+      description: ''
+      operationId: findById
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: form_id
+          in: path
+          required: true
+          type: string
+
+      responses:
+        '200':
+          description: Successful Operation
+          schema:
+            $ref: '#definitions/Theme'
+        '400':
+          description: An error occured while finding visitorList form.   
+  /payment/subscription:
+    post:
+      tags:
+        - payment
+      summary: Creates subscription for customer
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: email
+          in: query
+          description: Customer's email
+          required: true
+          type: string
+        - name: plan
+          in: query
+          description: Customer's plan choice
+          required: true
+          type: string
+        - name: source
+          in: query
+          description: stripe Token
+          type: string
       responses:
         '400':
-          description: 'Error Message, Company does not exist'
+          description: 'Error Message, Could not create customer' 
+  /payment/subscription/{stripeCustomerID}:
+    get:
+      tags:
+        - payment
+      operationId: getSubscription
+      summary: Get subscription of a customer
+      consumes:
+        - application/json
+        - application/xml
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: stripeCustomerID
+          in: path
+          description: Stripe Customer ID
+          required: true
+          type: string
+      responses:
+        '400':
+          description: 'Error Message, Could not find'    
+  /theme/{user_id}/theme:
+    post:
+      tags:
+        - theme
+      summary: Creates a theme for a user
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          type: string
+          description: "A company's or user's id"
+          required: true
+        - in: body
+          name: body
+          schema:
+            $ref: '#definitions/Theme'
+          required: true  
+      responses:
+        '400':
+          description: 'Error Message, Could not find company'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/Theme'
+    get:
+      tags:
+        - theme
+      summary: Gets theme by user_id
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: company or user id
+          type: integer
+          required: true
+      responses:
+        '400':
+          description: 'Error Message, Can not find'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/Theme'
+    put:
+      tags:
+        - theme
+      summary: Updates a company or user's theme
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: Appointment id
+          type: integer
+          required: true
+        - name: form_color
+          in: formData
+          required: false
+          type: string
+          description: Theme of form's color
+        - name: background_img
+          in: formData
+          required: false
+          type: string
+          description: Theme's background image
+        - name: displayPhone
+          in: formData
+          required: false
+          type: string
+          description: Theme's display phone
+        - name: displayClock
+          in: formData
+          required: false
+          type: string
+          description: Theme's display clock
+        - name: displaySignature
+          in: formData
+          required: false
+          type: string
+          description: Theme's display signature
+        - name: additionalComments
+          in: formData
+          required: false
+          type: string
+          description: Theme's additionalcommenets
+      responses:
+        '400':
+          description: 'Error Message, Could not Save'
+        '200':
+          description: 'Successful Operation'
+          schema:
+            $ref: '#definitions/Theme'
+    delete:
+      tags:
+        - theme
+      summary: Removes company or user's theme
+      consumes:
+        - application/x-www-form-urlencoded
+      produces:
+        - application/xml
+        - application/json
+      parameters:
+        - name: user_id
+          in: path
+          description: Company or user id
+          type: integer
+          required: true
+      responses:
+        '400':
+          description: 'Error Message,Could Not Find or Save'
+        '200':
+          description: 'Successful Operation'
+        
 definitions:
   Appointments:
     type: object
@@ -546,7 +1059,10 @@ definitions:
       provider_name:
         type: string
       company_id:
-        $ref: '#definitions/Company'
+        type: string
+      is_checkedin:
+        type: boolean
+        default: false
   Company:
     type: object
     required:
@@ -587,7 +1103,7 @@ definitions:
       role:
         type: string
       company_id:
-        $ref: '#definitions/Company'
+        type: string
   Theme:
     type: object
     properties:
@@ -595,16 +1111,22 @@ definitions:
         type: string
       form_color:
         type: string
+        default: default
       background_img:
         type: string
+        default: default
       displayPhone:
         type: boolean
+        default: false
       displayClock:
         type: boolean
+        default: false
       displaySignature:
         type: boolean
+        default: false
       additionalComments:
         type: boolean
+        default: false
   Visitor:
     type: object
     required:
@@ -614,7 +1136,7 @@ definitions:
       - checkin_time
     properties:
       company_id:
-        $ref: '#definitions/Company'
+        type: string
       first_name:
         type: string
       last_name:
@@ -623,7 +1145,7 @@ definitions:
         type: string
       checkin_time:
         type: string
-        default: Date.now
+        format: date
       appointments:
         $ref: '#definitions/Appointments'
       additional_info:
@@ -635,7 +1157,35 @@ definitions:
       - company_id
     properties:
       company_id:
-        $ref: '#definitions/Company'
+        type: string
       visitors:
+        type: array
         $ref: '#definitions/Visitor'
-        
+  Form:
+    type: object
+    required:
+      - _admin_id
+      - template
+    properties:
+      _admin_id:
+        type: string
+      template:
+        type: object
+  SubmittedForm:
+    type: object
+    required:
+      - _admin_id
+    properties:
+      _admin_id:
+        type: string
+      form:
+        type: object
+      firstName:
+        type: string
+      lastName:
+        type: string
+      patientEmail:
+        type: string
+      date:
+        type: string
+        format: date
