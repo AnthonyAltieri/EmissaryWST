@@ -4,10 +4,13 @@ import Card from '../../Overlay/Card';
 import Input from '../../Input/TextInputBox';
 import JumboRaisedButton from '../../Buttons/JumboRaisedButton';
 import { toastr } from 'react-redux-toastr';
+import * as AppointmentsAPI from '../../../api/Appointments';
 
 const AddAppointmentOverlay = ({
   isVisible,
   hideOverlay,
+  addAppointment,
+  companyId
 }) => {
 
   let firstname = '';
@@ -22,6 +25,8 @@ const AddAppointmentOverlay = ({
     <Card
       isVisible={isVisible}
       hideOverlay={hideOverlay}
+      addAppointment={addAppointment}
+      companyId={companyId}
     >
       <Input
         placeholder="First name"
@@ -38,26 +43,61 @@ const AddAppointmentOverlay = ({
       <Input
         placeholder="Last name"
         type="name"
+        inputRef={(node) => {
+          if (!node) return;
+          lastname = node.value;
+        }}
+        onChange={(event) => {
+          lastname = event.target.value;
+        }}
       />
       <br />
       <Input
         placeholder="Phone number"
         type="phonenumber"
+        inputRef={(node) => {
+          if (!node) return;
+          phoneNumber = node.value;
+        }}
+        onChange={(event) => {
+          phoneNumber = event.target.value;
+        }}
       />
       <br />
       <Input
         placeholder="Provider name"
         type="account"
+        inputRef={(node) => {
+          if (!node) return;
+          providerName = node.value;
+        }}
+        onChange={(event) => {
+          providerName = event.target.value;
+        }}
       />
       <br />
       <Input
         placeholder="Date"
         type="date"
+        inputRef={(node) => {
+          if (!node) return;
+          date = node.value;
+        }}
+        onChange={(event) => {
+          date = event.target.value;
+        }}
       />
       <br />
       <Input
         placeholder="Time"
         type="time"
+        inputRef={(node) => {
+          if (!node) return;
+          time = node.value;
+        }}
+        onChange={(event) => {
+          time = event.target.value;
+        }}
       />
       <br />
       <JumboRaisedButton
@@ -72,19 +112,35 @@ const AddAppointmentOverlay = ({
           }
 
           try {
-            const payload = await create(
+
+            console.log("called add appointment")
+            const payload = await AppointmentsAPI.create(
               firstname,
-              lasntname,
+              lastname,
               phoneNumber,
               date,
               companyId,
               providerName,
             );
+
+            console.log(payload)
             if (payload.error) {
-              // do something
+
+              toastr.error('Server error try again')
+              return
             }
 
+            const appointment = {
+              firstName: firstname,
+              lastName: lastname,
+              phoneNumber: phoneNumber,
+              date: date
+            }
+
+            hideOverlay(appointment)
+
           } catch (e) {
+            console.log(e)
             toastr.error('Server error try again');
           }
 

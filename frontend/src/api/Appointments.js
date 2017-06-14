@@ -28,9 +28,26 @@ export const getById = async (appointmentId) => await get(
   `/appointments/${appointmentId}`
 );
 
-export const getAllByCompanyId = async (companyId) => await get(
-  `/appointments/company/${companyId}`
-);
+export const getAllByCompanyId = async (companyId) => {
+  const payload = await get(`/appointments/company/${companyId}`);
+  if (payload.error)
+    return payload
+
+  const appointments = []
+
+  payload.map((a) => {
+
+    let appointment = {
+      firstName: a.first_name,
+      lastName: a.last_name,
+      phoneNumber: a.phone_number,
+      date: a.date
+    }
+    appointments.push(appointment)
+  })
+
+  return appointments
+}
 
 export const deleteByAppointmentId = async (appointmentId) => await del(
   `/appointments/${appointmentId}`

@@ -10,9 +10,11 @@ import ResponsiveTable from '../ResponsiveTable';
 import * as OverlayActions from '../../../actions/Overlay'
 import * as AppointmentsApi from '../../../api/Appointments';
 import * as AppointmentsActions from '../../../actions/Appointments';
+import * as AppointmentActions from '../../../actions/Appointment';
 import AddAppointmentOverlay from './AddAppointmentOverlay';
 import Fab from '../../Buttons/Fab';
 import { toastr } from 'react-redux-toastr';
+
 
 
 function transformAppointmentList(appointmentList) {
@@ -53,12 +55,14 @@ class Appointments extends Component {
     const { companyId, setAppointments } = this.props;
     try {
       const payload = await AppointmentsApi.getAllByCompanyId(companyId);
+      console.log(payload)
       if (payload.error) {
+
         toastr.error('Error fetching appointments try again later');
         return;
       }
 
-      setAppointments(payload.appointments);
+      setAppointments(payload);
       // Do stuff with payload, probably send an action to populate state
 
     } catch (e) {
@@ -76,6 +80,7 @@ class Appointments extends Component {
       overlayMode,
       isOverlayVisible,
       appointmentList,
+      companyId
     } = this.props;
     return (
       <div className="stage">
@@ -90,6 +95,7 @@ class Appointments extends Component {
         <AddAppointmentOverlay
           isVisible={isOverlayVisible && overlayMode === 'ADD_APPOINTMENT'}
           hideOverlay={hideOverlay}
+          companyId={companyId}
         />
         <Fab
           location="BOTTOM_RIGHT"
@@ -114,7 +120,12 @@ const stateToProps = (s) => ({
 
 const dispatchToProps = (d) => ({
   showAddAppointmentOverlay: () => d(OverlayActions.showOverlay('ADD_APPOINTMENT')),
-  hideOverlay: () => d(OverlayActions.hideOverlay()),
+  hideOverlay: (appointment) => {
+    console.log("in this hide overlay")
+    console.log(appointment)
+    d(OverlayActions.hideOverlay())
+    d(AppointmentActions.addAppointment(appointment))
+  },
   setAppointments: appointments => d(AppointmentsActions.set(appointments)),
 });
 
