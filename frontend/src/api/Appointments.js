@@ -4,7 +4,10 @@
 
 import { get, put, post, del } from './http';
 
-
+/**
+* Creates a new appointment for a visitor that contains their first name, last name
+* phone number, date, companyId, and provider name
+*/
 export const create = async (
   firstName,
   lastName,
@@ -24,10 +27,18 @@ export const create = async (
   }
 );
 
+/**
+* Gets an appointment of a company
+* @param appointmentId - the id of the appointment to a company
+*/
 export const getById = async (appointmentId) => await get(
   `/appointments/${appointmentId}`
 );
 
+/**
+* Gets all of the company's scheduled appointments
+* @param companyId - a company's id
+*/
 export const getAllByCompanyId = async (companyId) => {
   const payload = await get(`/appointments/company/${companyId}`);
   if (payload.error)
@@ -49,10 +60,20 @@ export const getAllByCompanyId = async (companyId) => {
   return appointments
 }
 
+/**
+* Deletes a visitor's appointment
+* @param appointmentId - the id of the appointment to a company
+*/
 export const deleteByAppointmentId = async (appointmentId) => await del(
   `/appointments/${appointmentId}`
 );
 
+/**
+* Updates a visitor's appointment
+* @param appointmentId - the id of the appointment to a company
+* @param fields - the updateable items of an appointment, the first name, last name, phone number
+*			      date, and provider name
+*/
 export const update = async (appointmentId, fields) => {
   // Get the keys in fields (the fields that should be updated)
   const fieldKeys = Object.keys(fields);

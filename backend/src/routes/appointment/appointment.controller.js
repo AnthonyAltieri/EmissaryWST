@@ -24,7 +24,7 @@ module.exports.template = {};
 /**
 * Creates a new appointment for a visitor
 * @param {Object} req - a request object that contains a visitor's information which includes
-						a visitor's first name, last name, phone number, appointment date, company visiting id, and provider name
+*						a visitor's first name, last name, phone number, appointment date, company visiting id, and provider name
 * @param {Object} res - a response object that either returns an error message or saves the visitor's appointment
 */
 module.exports.template.create = function(req, res) {
@@ -80,8 +80,8 @@ module.exports.template.getAll = function(req, res) {
 
 
 /**
-* Gets all of the company's scheduled appointments
-* @param req - a request object that contains the company's id
+* Gets an appointment by its appointment id
+* @param req - a request object that contains the appointment's id
 * @param res - a response object that either returns an error message or returns the list of scheduled appointments
 */
 module.exports.template.get = function(req, res) {
