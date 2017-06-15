@@ -22,6 +22,7 @@ class CheckIn extends Component {
       clickCheckIn,
       clickBack,
       isFillingOutInformation,
+      companyName,
     } = this.props;
 
     return (
@@ -47,7 +48,7 @@ class CheckIn extends Component {
         <div className="content">
           {isFillingOutInformation
             ? <FillInformation clickBack={clickBack} />
-            : <Resting goToWelcome={goToWelcome} clickCheckIn={clickCheckIn} />
+          : <Resting goToWelcome={goToWelcome} clickCheckIn={clickCheckIn} companyName={companyName}/>
           }
         </div>
       </div>
@@ -57,6 +58,7 @@ class CheckIn extends Component {
 
 const stateToProps = (s) => ({
   isFillingOutInformation: s.visitor.isFillingOutInformation,
+  companyName: s.company.name,
 });
 const dispatchToProps = (d) => ({
   goToWelcome: () => d(push('/welcome')),

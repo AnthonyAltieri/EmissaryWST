@@ -36,8 +36,11 @@ class Header extends Component {
               <img
                 src={brandLogoSrc}
                 className="brandLogo"
+                onTouchTap={() => navigateAndHideOverlay('/welcome')}
               />
-              <h1 className="brand">
+              <h1
+                className="brand"
+                onTouchTap={() => navigateAndHideOverlay('/welcome')}>
                 Emmisary
               </h1>
             </div>
