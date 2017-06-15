@@ -27,7 +27,7 @@
 ## Visitor
 -   [create](#create-3)
 -   [getAllByCompanyId](#getallbycompanyid-2)
--   [del](#del)
+-   [delVisitor](#delVisitor)
 -   [delByVisitorListId](#delbyvisitorlistid)
 
 
@@ -215,7 +215,7 @@ Gets the company's visitor list by company id
 
 -   `companyId`  a company's id
 
-## del
+## delVisitor
 
 Deletes a visitor from a company's visitor list
 
