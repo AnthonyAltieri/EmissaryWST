@@ -17,7 +17,7 @@ export const create = async (
   checkinTime,
   additionalInfo,
 ) => await post(
-  '/visitors',
+  '/visitorLists',
   {
     company_id: companyId,
     first_name: firstName,
@@ -33,7 +33,7 @@ export const create = async (
 * @param companyId - a company's id
 */
 export const getAllByCompanyId = async (companyId) => await get(
-  `/visitors/company/${companyId}`, { company_id: companyId }
+  `/visitorLists/company/${companyId}`, { company_id: companyId }
 );
 
 /**
@@ -41,7 +41,7 @@ export const getAllByCompanyId = async (companyId) => await get(
 * @param companyId - a company's id
 * @param visitorId - visitor's id
 */
-export const del = async (companyId, visitorId) => await del(
+export const delVisitor = async (companyId, visitorId) => await del(
   `company/${companyId}/visitor/${visitorId}`
 );
 
@@ -50,6 +50,5 @@ export const del = async (companyId, visitorId) => await del(
 * @param visitorListId - a company's visitor list id
 */
 export const delByVisitorListId = async (visitorListId) => await del(
-  `/visitors/${visitorListId}`
+  `/visitorLists/${visitorListId}`
 );
-

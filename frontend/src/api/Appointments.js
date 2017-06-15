@@ -15,7 +15,7 @@ export const create = async (
   phoneNumber,
   date,
   companyId,
-  providerName
+  providerName,
 ) => await post(
   `/appointments/`,
   {
@@ -47,7 +47,7 @@ export const getAllByCompanyId = async (companyId) => {
     return payload
 
   const appointments = []
-
+  console.log(payload)
   payload.map((a) => {
 
     let appointment = {
@@ -55,12 +55,13 @@ export const getAllByCompanyId = async (companyId) => {
       lastName: a.last_name,
       phoneNumber: a.phone_number,
       date: moment(a.date).format('MMM Do YYYY'),
-      time: moment(a.date).format('h:mm:ss a')
+      time: moment(a.date).format('h:mm a'),
+      providerName: a.provider_name,
     }
     appointments.push(appointment)
   })
 
-  console.log("what the actual fuck")
+  console.log("what the actual fuckk")
   console.log(appointments)
 
   return appointments
@@ -99,4 +100,3 @@ export const update = async (appointmentId, fields) => {
   };
   return await put(`/appointments/${appointmentId}`, data)
 };
-
