@@ -2,63 +2,15 @@
 
 ### Table of Contents
 
--   [initialState](#initialstate)
--   [initialState](#initialstate-1)
--   [initialState](#initialstate-2)
--   [initialState](#initialstate-3)
--   [initialState](#initialstate-4)
--   [initialState](#initialstate-5)
 -   [Appointment](#appointment)
 -   [Company](#company)
 -   [Credentials](#credentials)
 -   [Overlay](#overlay)
 -   [Overlay](#overlay-1)
--   [combineReducers](#combinereducers)
 -   [User](#user)
 -   [Visitor](#visitor)
 -   [Window](#window)
--   [MOBILE_MAX_WINDOW_WIDTH](#mobile_max_window_width)
 -   [displayMode](#displaymode)
-
-## initialState
-
-Created by abbas on 6/11/17.
-
-## initialState
-
-**Meta**
-
--   **author**: Anthony Altieri on 6/10/17.
-
-## initialState
-
-**Meta**
-
--   **author**: Anthony Altieri on 6/10/17.
-
-## initialState
-
-**Meta**
-
--   **author**: Anthony Altieri on 6/4/17.
-
-## initialState
-
-**Meta**
-
--   **author**: Anthony Altieri on 6/4/17.
-
-## initialState
-
-**Meta**
-
--   **author**: Anthony Altieri on 6/4/17.
-
-## Appointment
-
-**Meta**
-
--   **author**: Anthony Altieri on 6/10/17.
 
 ## Company
 
@@ -87,10 +39,6 @@ last name, company, or phone number
 -   `state` **any?**  (optional, default `{}`)
 -   `action`  
 
-**Meta**
-
--   **author**: Anthony Altieri on 6/4/17.
-
 ## Overlay
 
 Based on action, will determine whether or not to display the overlay or hide it.
@@ -99,12 +47,6 @@ Based on action, will determine whether or not to display the overlay or hide it
 
 -   `state` **any?**  (optional, default `{}`)
 -   `action`  
-
-## combineReducers
-
-**Meta**
-
--   **author**: Anthony Altieri on 6/4/17.
 
 ## User
 
@@ -133,14 +75,6 @@ Based on action, will get dimensions to resize window to fit device
 
 -   `state` **any?**  (optional, default `initialState`)
 -   `action`  
-
-## MOBILE_MAX_WINDOW_WIDTH
-
-Type: [number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)
-
-**Meta**
-
--   **author**: Anthony Altieri on 6/10/17.
 
 ## displayMode
 
