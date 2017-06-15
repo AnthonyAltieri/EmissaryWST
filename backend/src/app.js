@@ -36,8 +36,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Point static content serving
-app.use(express.static(path.join(__dirname, '../frontend')));
-app.use('/static', express.static(path.join(__dirname, '..', '..', 'frontend', 'static')));
+app.use('/static', express.static(path.join(__dirname, '..', '..', 'frontend', 'dist')));
 
 // Set view engine
 app.set('view engine', 'html');
@@ -82,6 +81,11 @@ server.listen(app.get('port'), () => {
 
 // Create Socket.io server.
 socketIO.createServer(io);
+
+app.get('/*', (req, res) => {
+  res
+    .sendFile(path.join(__dirname, '..', '..', 'frontend', 'dist', 'index.html'));
+});
 
 
 export default app;

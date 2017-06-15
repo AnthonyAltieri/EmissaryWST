@@ -10,9 +10,9 @@
   "scripts": {
     "start": "gulp backend:babel && nodemon backend/dist/app.js",
     "test": "gulp test:server",
-    "watch-frontend": "gulp frontend:combined",
     "watch-backend": "gulp backend:watch",
-    "build-backend": "gulp backend:babel"
+    "build-backend": "gulp backend:babel",
+    "build-frontend": "cd frontend && npm run build"
   },
   "dependencies": {
     "async": "0.9.0",

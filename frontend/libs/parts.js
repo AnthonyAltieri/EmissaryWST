@@ -197,8 +197,16 @@ exports.extractCSS = function(paths) {
           test: /\.scss$/,
           loader: ExtractTextPlugin.extract(
             "style",
-            "css!sass!postcss"
+            "css!sass"
           ),
+        },
+        {
+          test: /\.mcss$/,
+          loader: ExtractTextPlugin.extract(
+            'style',
+            'css-loader?modules'
+          ),
+          include: /components/,
         },
         {
           test: /\.css$/,
