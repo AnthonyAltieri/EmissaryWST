@@ -8,6 +8,10 @@ const initialState = {
   visitors: [],
 };
 
+/**
+* Based on action, will determine whether a user is filling out information on 
+* the check in page
+*/
 const Visitor = (state = initialState, action) => {
   switch (action.type) {
     case 'BACK_TO_CHECK_IN':

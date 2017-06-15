@@ -23,7 +23,11 @@ var jwt = require('jwt-simple');
 /****** Company TEMPLATE ROUTES ******/
 module.exports.template = {};
 
-/**signup- Used to sign up a user.*/
+/**
+* Creates a company that is used in the sign up process to sign up a user
+* @param req - a request object that contains the company's email, name, phone number, and paid time
+* @param res - a response object that either returns an error message or creates the company
+*/
 module.exports.template.create = function(req, res) {
     var company = new Company();
 
@@ -48,7 +52,11 @@ module.exports.template.create = function(req, res) {
     });
 };
 
-/**get All the companies*/
+/**
+* Gets all of the companies that are in the database
+* @param req - a request object
+* @param res - a response object that either returns an error message or returns the list of companies
+*/
 module.exports.template.getAll = function(req, res) {
     Company.find({},
         {
@@ -64,6 +72,12 @@ module.exports.template.getAll = function(req, res) {
 };
 
 /**authLogin- logs in a user*/
+/**
+* Gets a company 
+* @param req - a request object that contains the company's id
+* @param res - a response object that either returns an error message or shows the company's public information
+*
+*/
 module.exports.template.get = function(req, res) {
     Company.findOne({_id: req.params.id}, function(err, company) {
         if(err)
@@ -73,6 +87,13 @@ module.exports.template.get = function(req, res) {
 };
 
 /* update the company info */
+/**
+* Updates a company's information
+* @param req - a request object that contains the company's id
+* @param res - a response object that either returns an error message or updates a company's information base
+*			   on the changed inputs of email, name and phone number
+*
+*/
 module.exports.template.update = function(req, res){
     Company.findOne({_id: req.params.id}, function (err, c) {
         if(err || !c)
@@ -100,6 +121,12 @@ module.exports.template.update = function(req, res){
 };
 
 /* delete company */
+/**
+* Deletes a company
+* @param req - a request object that contains the company's id
+* @param res - a response object that either returns an error message or deletes a company
+*
+*/
 module.exports.template.delete = function(req, res){
     Company.findById(req.params.id, function(err, c) {
         if(err)
@@ -115,6 +142,12 @@ module.exports.template.delete = function(req, res){
 };
 
 /**authResetCredentials- resets a user's credentials*/
+/**
+* Resets a user's crendentials
+* @param req - a request object that contains the user's id
+* @param res - a response object that either returns an error message or resets all user credentials to undefined
+*
+*/
 module.exports.template.resetCredentials = function(req, res) {
     Company.findOne({email: req.params.user}, function (err, c) {
         if(err || !c)
@@ -140,7 +173,10 @@ module.exports.template.resetCredentials = function(req, res) {
         return res.status(200).json(showCompanyPublicInfo(c));
     });
 };
-
+/**
+* Returns a company's public information
+* @param c - company id
+*/
 function showCompanyPublicInfo(c){
     return {
         _id: c._id,
