@@ -14,7 +14,7 @@
     "watch-backend": "gulp backend:watch",
     "build-backend": "gulp backend:babel",
     "build-frontend": "cd frontend && npm run build",
-    "heroku-postbuild": "npm install-frontend && npm run build-backend && npm run build-frontend"
+    "heroku-postbuild": "npm run install-frontend && npm run build-backend && npm run build-frontend"
   },
   "dependencies": {
     "async": "0.9.0",
