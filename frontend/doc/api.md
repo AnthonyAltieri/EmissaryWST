@@ -21,12 +21,12 @@
 -   [getAllByCompanyId](#getallbycompanyid-1)
 -   [getByEmployeeId](#getbyemployeeid)
 -   [deleteByEmployeeId](#deletebyemployeeid)
+-   [update](#update-2)
 -   [login](#login)
 
 ## Visitor
 -   [create](#create-3)
 -   [getAllByCompanyId](#getallbycompanyid-2)
--   [update](#update-2)
 -   [del](#del)
 -   [delByVisitorListId](#delbyvisitorlistid)
 
