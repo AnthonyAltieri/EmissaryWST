@@ -3,6 +3,7 @@
  */
 
 import { get, put, post, del } from './http';
+import moment from 'moment';
 
 /**
 * Creates a new appointment for a visitor that contains their first name, last name
@@ -53,7 +54,8 @@ export const getAllByCompanyId = async (companyId) => {
       firstName: a.first_name,
       lastName: a.last_name,
       phoneNumber: a.phone_number,
-      date: a.date
+      date: moment(a.date).format('MMM Do YYYY'),
+      time: moment(a.date).format('h:mm:ss a')
     }
     appointments.push(appointment)
   })
