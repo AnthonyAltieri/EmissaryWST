@@ -13,11 +13,22 @@ const features = [
       + 'them',
   },
   {
-    header: 'Customizable',
+    header: 'Form Builder',
     iconSrc: require('../../img/features/check-mark.svg'),
-    content: 'Change the look, feel, and content of your forms through our '
+    content: 'Customize the look, feel, and content of your forms through our '
     + 'Form Builder'
   },
+  {
+    header: 'Machine Learning',
+    iconSrc: require('../../img/features/bars-chart.svg'),
+    content: 'Use machine learning to optimize your appointment reminders',
+  },
+  {
+    header: 'Omnichannel',
+    iconSrc: require('../../img/features/boss.svg'),
+    content: 'Speak to your clients on the platform that they prefer with '
+      + 'omnichannel communication'
+  }
 ];
 
 

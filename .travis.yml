@@ -1,8 +1,10 @@
 language: node_js
 node_js:
   - 6
-before_script: npm run build-backend && npm run build-frontend
+before_script: npm run install-all && npm run build-backend && npm run build-frontend
 script: "gulp test:server && gulp test:client"
+env:
+  - NODE_ENV=staging
 deploy:
   - provider: heroku
     api_key:
