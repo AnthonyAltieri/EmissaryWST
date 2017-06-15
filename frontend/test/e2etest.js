@@ -43,7 +43,7 @@ test.before(function() {
     }
 })
 
-test.describe("Landing Page", function() {
+test.describe("Landing Page 2", function() {
    test.it("Checks landing home", function() {
        this.timeout(mochaTimeOut);
        driver.get(site)
@@ -52,7 +52,7 @@ test.describe("Landing Page", function() {
    });
 });
 
-test.describe("Log In", function() {
+test.describe("Log In 2", function() {
     test.it("Log in popup", function() {
        this.timeout(mochaTimeOut);
        driver.get(site)
@@ -62,7 +62,7 @@ test.describe("Log In", function() {
     });
 });
 
-test.describe(("Pricing"), function() {
+test.describe(("Pricing 2"), function() {
     test.it("Pricing popup", function() {
         this.timeout(mochaTimeOut);
         driver.get(site)
@@ -71,7 +71,7 @@ test.describe(("Pricing"), function() {
     });
 });
 
-test.describe(("Features"), function() {
+test.describe(("Features 2"), function() {
     test.it("Pricing popup", function() {
         this.timeout(mochaTimeOut);
         driver.get(site)
@@ -81,7 +81,7 @@ test.describe(("Features"), function() {
     });
 });
 
-test.describe(("Register Page"), function() {
+test.describe(("Register Page 2"), function() {
     test.it("Register form", function() {
         this.timeout(mochaTimeOut);
         driver.get(site)
