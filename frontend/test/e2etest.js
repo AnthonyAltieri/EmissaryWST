@@ -10,8 +10,8 @@ var test = require('selenium-webdriver/testing');
 var assert = require('assert');
 
 // can't run end2end tests on something that isn't deployed yet
-if(process.env.TRAVIS_BRANCH !== 'master') {
-    console.log("E2E testing skipped, develop CI");
+if(!!process.env.TRAVIS_BRANCH && process.env.TRAVIS_BRANCH !== 'master') {
+    console.log("E2E testing skipped, build not on staging server yet");
     return;
 }
 
