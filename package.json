@@ -43,6 +43,7 @@
     "gulp-jshint": "1.9.2",
     "gulp-mocha": "2.0.0",
     "gulp-nodemon": "1.0.5",
+    "gulp-shell": "^0.3.0",
     "gulp-sourcemaps": "^2.6.0",
     "iconv-lite": "0.4.13",
     "jshint-stylish": "1.0.1",
@@ -68,7 +69,6 @@
     "wiredep": "2.2.2"
   },
   "devDependencies": {
-    "gulp-shell": "^0.3.0",
     "mocha": "2.1.0",
     "selenium-webdriver": "^3.4.0"
   },
