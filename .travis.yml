@@ -1,7 +1,7 @@
 language: node_js
 node_js:
   - 6
-before_script: npm run build-backend && npm run build-frontend
+before_script: npm run build-backend
 script: "gulp test:server && gulp test:client"
 env:
   - NODE_ENV=staging
