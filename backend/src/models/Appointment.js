@@ -37,7 +37,7 @@ appointmentSchema.statics.sendReminder = function(callback) {
   const searchDate = new Date();
   console.log("running reminder at "+ searchDate);
   Appointment
-    .find()
+    .find({is_checkedin: false})
     .then(function(appointments) {
       appointments = appointments.filter(function(appointment) {
               return appointment.requiresReminder(searchDate);
