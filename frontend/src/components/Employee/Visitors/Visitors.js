@@ -14,7 +14,6 @@ import { toastr } from 'react-redux-toastr';
 
 
 function transformVisitorList(visitorList) {
-  console.log("VLLLL", visitorList)
   if (visitorList.length == 0)
     return visitorList;
   let visitorRows = visitorList.visitors.map( function (visitor) {

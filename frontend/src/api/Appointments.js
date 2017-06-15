@@ -57,6 +57,7 @@ export const getAllByCompanyId = async (companyId) => {
       date: moment(a.date).format('MMM Do YYYY'),
       time: moment(a.date).format('h:mm a'),
       providerName: a.provider_name,
+      checkIn: a.is_checkedin,
     }
     appointments.push(appointment)
   })
