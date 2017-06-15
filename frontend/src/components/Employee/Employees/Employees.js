@@ -11,6 +11,12 @@ import Fab from '../../Buttons/Fab';
 import AddEmployeeOverlay from './AddEmployeeOverlay';
 import * as OverlayActions from '../../../actions/Overlay';
 
+function transformEmployeeList(employeeList) {
+  // TODO: implement, transform to our keys
+  return employeeList;
+}
+
+
 const headers = [
   {
     display: 'First name',
@@ -37,6 +43,7 @@ class Employees extends Component {
       isOverlayVisible,
       overlayMode,
       showAddEmployeeOverlay,
+      employeeList,
       hideOverlay,
     } = this.props;
 
@@ -45,6 +52,7 @@ class Employees extends Component {
         <SectionHeader text="Employees"/>
         <div className="tableContainer withFab">
           <ResponsiveTable
+            rows={transformEmployeeList(employeeList)}
             headers={headers}
             containerClassName="tableContainer"
           />
@@ -79,4 +87,3 @@ const dispatchToProps = (d) => ({
 
 Employees = connect(stateToProps, dispatchToProps)(Employees);
 export default Employees;
- 

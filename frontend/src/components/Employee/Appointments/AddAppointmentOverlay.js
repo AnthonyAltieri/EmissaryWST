@@ -114,6 +114,7 @@ const AddAppointmentOverlay = ({
           try {
 
             console.log("called add appointment")
+            /*
             const payload = await AppointmentsAPI.create(
               firstname,
               lastname,
@@ -123,18 +124,21 @@ const AddAppointmentOverlay = ({
               providerName,
             );
 
+
             console.log(payload)
             if (payload.error) {
 
               toastr.error('Server error try again')
               return
-            }
+            } */
 
             const appointment = {
               firstName: firstname,
               lastName: lastname,
               phoneNumber: phoneNumber,
-              date: date
+              providerName: providerName,
+              date,
+              time
             }
 
             hideOverlay(appointment)

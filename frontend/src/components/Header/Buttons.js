@@ -13,7 +13,7 @@ const Buttons = ({
     <Button
       isSmall={!!isSmall}
       label="Metrics"
-      onTouchTap={() => navigate('/employee/')}
+      onTouchTap={() => navigate('/employee/metrics')}
     />
     <Button
       isSmall={!!isSmall}

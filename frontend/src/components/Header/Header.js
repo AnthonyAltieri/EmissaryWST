@@ -54,7 +54,7 @@ class Header extends Component {
           <RaisedButton
             label="Metrics"
             className="headerOverlayButton"
-            onTouchTap={() => navigateAndHideOverlay('/employee/')}
+            onTouchTap={() => navigateAndHideOverlay('/employee/metrics')}
             primary
           />
           <RaisedButton
@@ -111,4 +111,3 @@ const dispatchToProps = (d) => ({
 
 Header = connect(stateToProps, dispatchToProps)(Header);
 export default Header;
- 

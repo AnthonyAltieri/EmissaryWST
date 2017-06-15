@@ -2,12 +2,13 @@
  * @author Anthony Altieri on 6/4/17.
  */
 import React, { Component } from 'react';
+import SectionHeader from '../SectionHeader';
 
 class Metrics extends Component {
   render() {
     return(
-      <div>
-        <h2>Metrics</h2>
+      <div className="stage">
+        <SectionHeader text="Metrics"/>
         <h3>Coming Soon</h3>
       </div>
     )
@@ -15,5 +16,3 @@ class Metrics extends Component {
 }
 
 export default Metrics;
-
-

@@ -4,6 +4,7 @@
 
 const Overlay = (state = {}, action) => {
   switch (action.type) {
+
     case 'SHOW_OVERLAY':
       return {
         ...state,

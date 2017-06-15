@@ -38,9 +38,7 @@ class ResponsiveTable extends Component {
     const container = document.getElementsByClassName(containerClassName)[0];
     console.log('container.offsetWidth', container.offsetWidth)
     console.log('container.offsetHeight', container.offsetHeight)
-    this.state.width = container.offsetWidth;
-    this.state.height = container.offsetHeight;
-    this.forceUpdate();
+    this.setState({width: container.offsetWidth, height: container.offsetHeight})
     this.oldWindowOnResize = window.onresize;
     window.onresize = () => {
       if (!!this.oldWindowOnResize) {
@@ -48,9 +46,7 @@ class ResponsiveTable extends Component {
       }
       const ONE_TENTH_SECOND = 100;
       (throttle(() => {
-        this.state.width = container.offsetWidth;
-        this.state.height = container.offsetHeight;
-        this.forceUpdate();
+        this.setState({width: container.offsetWidth, height: container.offsetHeight})
       }, ONE_TENTH_SECOND))();
     }
   }
@@ -103,10 +99,12 @@ class ResponsiveTable extends Component {
           width={this.state.width}
           height={this.state.height}
           ref={() => {
+            /*
             const node = document
               .querySelector('.fixedDataTableLayout_horizontalScrollbar');
             if (!node) return;
             node.parentNode.removeChild(node);
+            */
           }}
         >
           {headers.map((h) => (
@@ -128,4 +126,3 @@ class ResponsiveTable extends Component {
 }
 
 export default ResponsiveTable;
- 

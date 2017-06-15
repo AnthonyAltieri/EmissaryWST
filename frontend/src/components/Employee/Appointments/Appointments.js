@@ -16,12 +16,6 @@ import Fab from '../../Buttons/Fab';
 import { toastr } from 'react-redux-toastr';
 
 
-
-function transformAppointmentList(appointmentList) {
-  // TODO: implement, transform to our keys
-  return appointmentList;
-}
-
 const headers = [
   {
     display: 'First name',
@@ -87,7 +81,7 @@ class Appointments extends Component {
         <SectionHeader text="Appointments"/>
         <div className="tableContainer withFab">
           <ResponsiveTable
-            rows={transformAppointmentList(appointmentList)}
+            rows={appointmentList}
             headers={headers}
             containerClassName="tableContainer"
           />
@@ -115,7 +109,7 @@ const stateToProps = (s) => ({
   isOverlayVisible: s.overlay.isVisible,
   overlayMode: s.overlay.mode,
   companyId: s.company.id,
-  appointmentList: s.appointments.list,
+  appointmentList: s.appointment.list,
 });
 
 const dispatchToProps = (d) => ({
@@ -124,11 +118,12 @@ const dispatchToProps = (d) => ({
     console.log("in this hide overlay")
     console.log(appointment)
     d(OverlayActions.hideOverlay())
-    d(AppointmentActions.addAppointment(appointment))
+    if (appointment) {
+      d(AppointmentActions.addAppointment(appointment))
+    }
   },
   setAppointments: appointments => d(AppointmentsActions.set(appointments)),
 });
 
 Appointments = connect(stateToProps, dispatchToProps)(Appointments);
 export default Appointments;
- 
