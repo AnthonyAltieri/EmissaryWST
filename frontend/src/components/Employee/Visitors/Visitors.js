@@ -20,7 +20,7 @@ function transformVisitorList(visitorList) {
     return {
       firstName: visitor.first_name,
       lastName: visitor.last_name,
-      appointmentTime: time,
+      appointmentTime: time, //TODO: Fix with actual appointment time
       checkInTime: time,
     }
   });
