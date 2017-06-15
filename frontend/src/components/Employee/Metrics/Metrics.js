@@ -3,13 +3,26 @@
  */
 import React, { Component } from 'react';
 import SectionHeader from '../SectionHeader';
+var ZingChart = require('zingchart-react').core;
 
 class Metrics extends Component {
   render() {
+    var myConfig = {
+      type: "bar",
+      series : [
+        { values : [35,42,67,89,25,34,67,85] }
+      ]
+    };
+
     return(
       <div className="stage">
         <SectionHeader text="Metrics"/>
-        <h3>Coming Soon</h3>
+          <div className="employeePageForms" >
+            <div className="fullwidth">
+              <ZingChart id="myChart" height="300" width="600" data={myConfig} />
+            </div>
+          </div>
+
       </div>
     )
   }

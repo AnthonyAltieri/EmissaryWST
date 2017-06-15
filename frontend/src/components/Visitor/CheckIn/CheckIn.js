@@ -80,8 +80,8 @@ const dispatchToProps = (d) => ({
   firstnameOk: () => d(CredentialsActions.firstnameOk()),
   lastnameOk: () => d(CredentialsActions.lastnameOk()),
   phoneNumberOk: () => d(CredentialsActions.phoneNumberOk()),
-  checkInVisitor: (companyId, firstName, lastName, phoneNumber, checkinTime, additionalInfo) => d(
-    VisitorActions.checkInVisitor(companyId, firstName, lastName, phoneNumber, checkinTime, additionalInfo)
+  checkInVisitor: (companyId, firstName, lastName, phoneNumber, checkinTime, appointmentTime, additionalInfo) => d(
+    VisitorActions.checkInVisitor(companyId, firstName, lastName, phoneNumber, checkinTime, appointmentTime, additionalInfo)
   ),
 });
 
