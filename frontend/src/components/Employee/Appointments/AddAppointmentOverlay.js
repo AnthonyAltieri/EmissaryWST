@@ -55,7 +55,7 @@ const AddAppointmentOverlay = ({
       <br />
       <Input
         placeholder="Phone number"
-        type="phonenumber"
+        type="phone"
         inputRef={(node) => {
           if (!node) return;
           phoneNumber = node.value;
@@ -116,17 +116,22 @@ const AddAppointmentOverlay = ({
 
             console.log("called add appointment")
 
+
+
+            let timeToDate = moment(time, "H:mm").toDate();
+            let fullDate = moment(date).toDate();
+            fullDate.setHours(timeToDate.getHours());
+            fullDate.setMinutes(timeToDate.getMinutes());
+
             const payload = await AppointmentsAPI.create(
               firstname,
               lastname,
               phoneNumber,
-              date,
+              fullDate,
               companyId,
               providerName,
             );
 
-
-            console.log(payload)
             if (payload.error) {
 
               toastr.error('Server error try again')
@@ -138,10 +143,11 @@ const AddAppointmentOverlay = ({
               lastName: lastname,
               phoneNumber: phoneNumber,
               providerName: providerName,
-              date: moment(date).format('MMM Do YYYY'),
-              time: moment(date).format('h:mm:ss a')
+              date: moment(fullDate).format('MMM Do YYYY'),
+              time: moment(fullDate).format('h:mm a'),
             }
 
+            console.log("APPOINTMENT", appointment)
             hideOverlay(appointment)
 
           } catch (e) {

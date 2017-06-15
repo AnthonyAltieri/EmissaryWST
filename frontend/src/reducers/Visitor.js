@@ -5,6 +5,7 @@
 
 const initialState = {
   isFillingInformation: false,
+  visitors: [],
 };
 
 const Visitor = (state = initialState, action) => {
@@ -20,6 +21,19 @@ const Visitor = (state = initialState, action) => {
         ...state,
         isFillingOutInformation: true,
       };
+    case 'CHECK_IN_VISITOR':
+      return {
+        ...state,
+        visitors: [
+          ...state.visitors,
+          action.visitor
+        ],
+      };
+    case 'SET_VISITORS':
+      return {
+        ...state,
+        visitors: action.visitors,
+      };
     case 'LEAVE_CHECK_IN': return initialState;
     default:
       return state;
@@ -27,4 +41,3 @@ const Visitor = (state = initialState, action) => {
 }
 
 export default Visitor
- 

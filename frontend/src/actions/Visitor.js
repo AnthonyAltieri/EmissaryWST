@@ -11,3 +11,20 @@ export const clickCheckIn = () => ({
 export const clickBack = () => ({
   type: 'BACK_TO_CHECK_IN',
 });
+
+export const setVisitors = (visitors) => ({
+  type: 'SET_VISITORS',
+  visitors,
+});
+
+export const checkInVisitor = (companyId, firstName, lastName, phoneNumber, checkinTime, additionalInfo) => ({
+  type: 'CHECK_IN_VISITOR',
+  visitor: {
+    companyId,
+    firstName,
+    lastName,
+    phoneNumber,
+    checkinTime,
+    additionalInfo,
+  },
+});
