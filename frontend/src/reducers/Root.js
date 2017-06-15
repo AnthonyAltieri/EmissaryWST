@@ -22,8 +22,6 @@ const root = combineReducers({
   credentials: Credentials,
   company: Company,
   appointments: Appointments,
-  appointment: Appointment
 });
 
 export default root;
-

@@ -36,8 +36,11 @@ class Header extends Component {
               <img
                 src={brandLogoSrc}
                 className="brandLogo"
+                onTouchTap={() => navigateAndHideOverlay('/welcome')}
               />
-              <h1 className="brand">
+              <h1
+                className="brand"
+                onTouchTap={() => navigateAndHideOverlay('/welcome')}>
                 Emmisary
               </h1>
             </div>
@@ -54,7 +57,7 @@ class Header extends Component {
           <RaisedButton
             label="Metrics"
             className="headerOverlayButton"
-            onTouchTap={() => navigateAndHideOverlay('/employee/')}
+            onTouchTap={() => navigateAndHideOverlay('/employee/metrics')}
             primary
           />
           <RaisedButton
@@ -111,4 +114,3 @@ const dispatchToProps = (d) => ({
 
 Header = connect(stateToProps, dispatchToProps)(Header);
 export default Header;
- 

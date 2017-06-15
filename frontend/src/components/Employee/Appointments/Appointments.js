@@ -16,12 +16,6 @@ import Fab from '../../Buttons/Fab';
 import { toastr } from 'react-redux-toastr';
 
 
-
-function transformAppointmentList(appointmentList) {
-  // TODO: implement, transform to our keys
-  return appointmentList;
-}
-
 const headers = [
   {
     display: 'First name',
@@ -53,6 +47,7 @@ const headers = [
 class Appointments extends Component {
   async componentDidMount() {
     const { companyId, setAppointments } = this.props;
+    console.log('componentDidMount()');
     try {
       const payload = await AppointmentsApi.getAllByCompanyId(companyId);
       console.log(payload)
@@ -82,12 +77,13 @@ class Appointments extends Component {
       appointmentList,
       companyId
     } = this.props;
+    console.log('appointmentList', appointmentList);
     return (
       <div className="stage">
         <SectionHeader text="Appointments"/>
         <div className="tableContainer withFab">
           <ResponsiveTable
-            rows={transformAppointmentList(appointmentList)}
+            rows={appointmentList}
             headers={headers}
             containerClassName="tableContainer"
           />
@@ -124,11 +120,12 @@ const dispatchToProps = (d) => ({
     console.log("in this hide overlay")
     console.log(appointment)
     d(OverlayActions.hideOverlay())
-    d(AppointmentActions.addAppointment(appointment))
+    if (appointment) {
+      d(AppointmentActions.addAppointment(appointment))
+    }
   },
   setAppointments: appointments => d(AppointmentsActions.set(appointments)),
 });
 
 Appointments = connect(stateToProps, dispatchToProps)(Appointments);
 export default Appointments;
- 

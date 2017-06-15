@@ -618,6 +618,12 @@ $SECTION_HEADER_HEIGHT: 52px;
   bottom: 0;
 }
 
+.settingsForms {
+  width: 90%;
+  margin-left: 5%;
+  margin-right: 5%;
+}
+
 $TABLE_CONTAINER_WIDTH: 90%;
 .tableContainer {
   margin-left: (100 - $TABLE_CONTAINER_WIDTH) / 2;
@@ -799,6 +805,3 @@ $LANDING_FOOTER_HEIGHT: 52px;
   padding: 8px 0;
   font-size: 28px;
 }
-
-
-

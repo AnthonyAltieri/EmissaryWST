@@ -24,7 +24,7 @@ export const update = async (companyId, fields) => {
   const findValueInField = (...possibleKeys) => {
     for (let i = 0 ; i < possibleKeys.length ; i++) {
       const key = possibleKeys[i];
-      if (fieldKeys.find(key)[0]) return fields[key];
+      if (fieldKeys.indexOf(key) >= 0) return fields[key];
     }
   };
   const data = {
@@ -32,6 +32,7 @@ export const update = async (companyId, fields) => {
     name: findValueInField('name'),
     phone_number: findValueInField('phone_number', 'phoneNumber'),
   };
+  console.log("DATA", data)
   return await put(`/companies/${companyId}`, data);
 };
 

@@ -6,6 +6,7 @@ import CheckInButton from './CheckInButton';
 const Resting = ({
   goToWelcome,
   clickCheckIn,
+  companyName,
 }) => {
   return (
     <div className="fullscreen relative c around">
@@ -17,7 +18,7 @@ const Resting = ({
       </FontIcon>
       <div className="r center">
         <div className="glass">
-          <h1>Altieri Consulting</h1>
+          <h1>{companyName}</h1>
         </div>
       </div>
       <div className="r center">
