@@ -114,7 +114,7 @@ const AddAppointmentOverlay = ({
           try {
 
             console.log("called add appointment")
-            /*
+
             const payload = await AppointmentsAPI.create(
               firstname,
               lastname,
@@ -130,7 +130,7 @@ const AddAppointmentOverlay = ({
 
               toastr.error('Server error try again')
               return
-            } */
+            }
 
             const appointment = {
               firstName: firstname,

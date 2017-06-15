@@ -47,6 +47,7 @@ const headers = [
 class Appointments extends Component {
   async componentDidMount() {
     const { companyId, setAppointments } = this.props;
+    console.log('componentDidMount()');
     try {
       const payload = await AppointmentsApi.getAllByCompanyId(companyId);
       console.log(payload)
@@ -76,6 +77,7 @@ class Appointments extends Component {
       appointmentList,
       companyId
     } = this.props;
+    console.log('appointmentList', appointmentList);
     return (
       <div className="stage">
         <SectionHeader text="Appointments"/>
@@ -109,7 +111,7 @@ const stateToProps = (s) => ({
   isOverlayVisible: s.overlay.isVisible,
   overlayMode: s.overlay.mode,
   companyId: s.company.id,
-  appointmentList: s.appointment.list,
+  appointmentList: s.appointments.list,
 });
 
 const dispatchToProps = (d) => ({

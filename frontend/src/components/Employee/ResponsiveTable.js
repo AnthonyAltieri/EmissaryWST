@@ -13,11 +13,15 @@ const DEFAULT_HEADER_HEIGHT = 50;
 const DEFAULT_COLUMN_WIDTH = 1000;
 const DEFAULT_HEIGHT = 400;
 const DEFAULT_WIDTH = 400;
+const DEFAULT_ROW_COUNT = 0;
 
 
-const TextCell = ({ rowIndex, data, col, ...props }) => (
+const TextCell = ({ rowIndex, data = {}, col, ...props }) => (
   <Cell {...props}>
-    {data[rowIndex][col]}
+    {(typeof data[rowIndex] !== 'undefined' || data[rowIndex] !== null)
+      ? data[rowIndex][col]
+      : ''
+    }
   </Cell>
 )
 
@@ -69,6 +73,7 @@ class ResponsiveTable extends Component {
     } = this.props;
 
     console.log('this.state responsive table', this.state)
+    console.log('rows', rows);
 
     return (
       <div
@@ -95,7 +100,7 @@ class ResponsiveTable extends Component {
         <Table
           rowHeight={rowHeight}
           headerHeight={headerHeight}
-          rowsCount={rows.length}
+          rowsCount={!!rows.length ? rows.length : DEFAULT_ROW_COUNT}
           width={this.state.width}
           height={this.state.height}
           ref={() => {
