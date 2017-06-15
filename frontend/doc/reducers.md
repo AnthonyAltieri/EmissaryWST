@@ -2,11 +2,9 @@
 
 ### Table of Contents
 
--   [Appointment](#appointment)
 -   [Company](#company)
 -   [Credentials](#credentials)
 -   [Overlay](#overlay)
--   [Overlay](#overlay-1)
 -   [User](#user)
 -   [Visitor](#visitor)
 -   [Window](#window)
@@ -30,13 +28,6 @@ last name, company, or phone number
 **Parameters**
 
 -   `state` **any?**  (optional, default `initialState`)
--   `action`  
-
-## Overlay
-
-**Parameters**
-
--   `state` **any?**  (optional, default `{}`)
 -   `action`  
 
 ## Overlay
