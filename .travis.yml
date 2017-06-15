@@ -2,7 +2,8 @@ language: node_js
 node_js:
   - 6
 install:
-  - npm run install-all
+  - npm i
+  - npm run install-frontend
 before_script: npm run build-backend && npm run build-frontend
 script: "gulp test:server && gulp test:client"
 env:
