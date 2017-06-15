@@ -11,6 +11,10 @@ const initialState = {
   paidTime: null,
 };
 
+/**
+* Based on company action either set a company's id, set a company's information, or 
+* clear a company's credentials
+*/
 const Company = (state = initialState, action) => {
   switch (action.type) {
     case 'COMPANY_SET_ID':

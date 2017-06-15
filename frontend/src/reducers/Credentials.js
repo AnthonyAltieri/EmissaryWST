@@ -10,6 +10,10 @@ const initialState = {
   phoneNumberError: null,
 };
 
+/**
+* Based on action, will determine whether there has been an error in email, first name
+* last name, company, or phone number
+*/
 const Credentials = (state = initialState, action) => {
   switch (action.type) {
 

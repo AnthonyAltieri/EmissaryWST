@@ -6,7 +6,8 @@
 import axios from 'axios';
 import queryString from 'query-string';
 
-/* This file defines the wrapper that points our http/https calls to our backend
+/** 
+ * This file defines the wrapper that points our http/https calls to our backend
  * depending on our development environment, if we are in development we are
  * going to query our local server, if we are in staging we are going to
  * query the staging server and if production we are going to  query the
@@ -53,6 +54,12 @@ const instance = axios.create({
 console.log('axios instance', instance);
 console.log('baseUrl', `${host}:${port}/api`);
 
+/**
+* Post request
+* @param url
+* @param data
+* @return {Promise<*>} - Returns parameters list of data to be processed by a specified resource
+*/
 export function post(url, data) {
   console.group('POST');
   console.log('%c URL', 'color: blue', url);
@@ -65,6 +72,11 @@ export function post(url, data) {
   })
 }
 
+/**
+* Get request
+* @params url
+* @return {Promise<*>}  - Returns requested data from url query string
+*/
 export function get(url) {
   console.group('GET');
   console.log('%c URL', 'color: blue', url);
@@ -81,6 +93,12 @@ export function get(url) {
   })
 }
 
+/**
+* Put request
+* @params url
+* @params withCredentials
+* @return {Promise<*>}  - Returns parameters list of data to be processed by a specified resource
+*/
 export function put(url, data = {}) {
   console.group('PUT');
   console.log('%c URL', 'color: blue', url);
@@ -100,6 +118,12 @@ export function put(url, data = {}) {
 
 // This function will handle the creation of a querystring
 // NOTE: this is for DELETE
+/**
+* Delete request
+* @params url
+* @params data
+* @return {Promise<*>}  - Removes data from a specified source
+*/
 export function del(url, data = {}) {
   console.group('DELETE');
   console.log('%c URL', 'color: blue', url);
