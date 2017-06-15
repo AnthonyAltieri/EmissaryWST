@@ -134,15 +134,12 @@ const Form = ({
                 }
                 toastr.success('Check in success');
 
-                checkInVisitor(companyId, firstname, lastname, phoneNumber, moment(date).format('MMM Do YYYY h:mm a'), additionalInfo)
-                /*
-                checkInVisitor(
-                  payload['_id'],
-                  payload['name'],
-                  payload['email'],
-                  payload['phone_number'],
-                  payload['paid_time'],
-                ); */
+                  console.log("PAYYYLOADDD ", payload);
+                let appointmentTime = null;
+                if (payload.visitors[payload.visitors.length - 1].appointments.length > 0)
+                  appointmentTime = moment(appointments[0].date).format('MMM Do YYYY h:mm a');
+                checkInVisitor(companyId, firstname, lastname, phoneNumber, moment(date).format('MMM Do YYYY h:mm a'), appointmentTime, additionalInfo)
+
                 firstnameOk();
                 lastnameOk();
                 phoneNumberOk();
