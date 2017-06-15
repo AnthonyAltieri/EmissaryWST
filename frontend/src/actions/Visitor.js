@@ -17,7 +17,7 @@ export const setVisitors = (visitors) => ({
   visitors,
 });
 
-export const checkInVisitor = (companyId, firstName, lastName, phoneNumber, checkinTime, additionalInfo) => ({
+export const checkInVisitor = (companyId, firstName, lastName, phoneNumber, checkinTime, appointmentTime, additionalInfo) => ({
   type: 'CHECK_IN_VISITOR',
   visitor: {
     companyId,
@@ -25,6 +25,7 @@ export const checkInVisitor = (companyId, firstName, lastName, phoneNumber, chec
     lastName,
     phoneNumber,
     checkinTime,
+    appointmentTime,
     additionalInfo,
   },
 });

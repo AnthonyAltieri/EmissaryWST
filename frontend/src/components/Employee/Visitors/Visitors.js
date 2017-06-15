@@ -10,18 +10,26 @@ import ResponsiveTable from '../ResponsiveTable';
 import * as VisitorsApi from '../../../api/Visitors';
 import * as VisitorActions from '../../../actions/Visitor';
 import moment from 'moment';
+import { toastr } from 'react-redux-toastr';
 
 
 function transformVisitorList(visitorList) {
+  console.log("VLLLL", visitorList)
   if (visitorList.length == 0)
     return visitorList;
   let visitorRows = visitorList.visitors.map( function (visitor) {
-    let time = moment(visitor.checkin_time).format('MMM Do YYYY h:mm a')
+    let appointmentTime = "";
+
+    if (visitor.appointments.length > 0)
+    {
+      appointmentTime = moment(visitor.appointments[0].date).format('MMM Do YYYY h:mm a');
+    }
+    let checkInTime = moment(visitor.checkin_time).format('MMM Do YYYY h:mm a')
     return {
       firstName: visitor.first_name,
       lastName: visitor.last_name,
-      appointmentTime: time, //TODO: Fix with actual appointment time
-      checkInTime: time,
+      appointmentTime: appointmentTime,
+      checkInTime: checkInTime,
     }
   });
 

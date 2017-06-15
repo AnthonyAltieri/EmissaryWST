@@ -69,7 +69,9 @@
   "devDependencies": {
     "gulp-shell": "^0.3.0",
     "mocha": "2.1.0",
-    "selenium-webdriver": "^3.4.0"
+    "selenium-webdriver": "^3.4.0",
+    "zingchart": "^2.6.0",
+    "zingchart-react": "^1.0.5"
   },
   "engines": {
     "node": "0.10.x"
