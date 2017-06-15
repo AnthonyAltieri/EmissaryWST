@@ -2,6 +2,9 @@
  * @author Anthony Altieri on 6/4/17.
  */
 
+ /**
+ * Based on action, will determine whether or not to display the overlay or hide it.
+ */
 const Overlay = (state = {}, action) => {
   switch (action.type) {
 

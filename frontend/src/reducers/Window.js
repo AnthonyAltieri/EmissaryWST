@@ -9,6 +9,9 @@ const initialState = {
 };
 import { displayMode } from '../dimens';
 
+/**
+* Based on action, will get dimensions to resize window to fit device
+*/
 const Window = (state = initialState, action) => {
   switch (action.type) {
 
