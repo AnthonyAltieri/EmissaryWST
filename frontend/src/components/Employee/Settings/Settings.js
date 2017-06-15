@@ -20,7 +20,7 @@ class Settings extends Component {
       <div className="stage">
         <SectionHeader text="Settings"/>
         <div
-          className="settingsForms">
+          className="employeePageForms">
           <p className="changeSettingsLabel">
             Change Account Settings:
           </p>
