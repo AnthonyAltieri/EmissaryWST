@@ -13,6 +13,7 @@ import config from './config/config';
 import winstonConfig from './config/winston';
 import configureRoutes from './routes';
 import connectToDatabase from './database';
+import schedulerFactory from './schedule';
 
 // Stripe
 const MY_STRIPE_TEST_KEY = 'sk_test_dqzYJJ6xWGgg6U1hgQr3hNye';
@@ -86,6 +87,7 @@ app.get('/*', (req, res) => {
   res
     .sendFile(path.join(__dirname, '..', '..', 'frontend', 'dist', 'index.html'));
 });
+schedulerFactory.start();
 
 
 export default app;

@@ -8,6 +8,11 @@ const AddEmployeeOverlay = ({
   isVisible,
   hideOverlay,
 }) => {
+  let firstName = '';
+  let lastName = '';
+  let phone = '';
+  let email = '';
+
   return (
     <Card
       isVisible={isVisible}
@@ -16,21 +21,33 @@ const AddEmployeeOverlay = ({
       <Input
         placeholder="First name"
         type="name"
+        onChange={(e) => {
+          firstName = e.target.value;
+        }}
       />
       <br />
       <Input
         placeholder="Last name"
         type="name"
+        onChange={(e) => {
+          lastName = e.target.value;
+        }}
       />
       <br />
       <Input
         placeholder="Phone number"
-        type="phonenumber"
+        type="phone"
+        onChange={(e) => {
+          phone = e.target.value;
+        }}
       />
       <br />
       <Input
         placeholder="Email"
         type="email"
+        onChange={(e) => {
+          email = e.target.value;
+        }}
       />
       <br />
       <JumboRaisedButton

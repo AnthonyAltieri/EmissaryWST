@@ -31,6 +31,7 @@ import Metrics from './Employee/Metrics/Metrics';
 import Appointments from './Employee/Appointments/Appointments';
 import Employees from './Employee/Employees/Employees';
 import Forms from './Employee/Forms/Forms';
+import Settings from './Employee/Settings/Settings';
 
 
 
@@ -80,6 +81,7 @@ class Root extends Component {
                 <Route exact path="/employee/forms" component={Forms} />
                 <Route exact path="/employee/metrics" component={Metrics} />
                 <Route exact path="/employee/visitors" component={Visitors} />
+                <Route exact path="/employee/settings" component={Settings} />
               </div>
             </ConnectedRouter>
           </MuiThemeProvider>

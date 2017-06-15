@@ -3,7 +3,7 @@
  */
 
 import { get, put, post, del } from './http';
-
+import moment from 'moment';
 
 export const create = async (
   firstName,
@@ -11,7 +11,7 @@ export const create = async (
   phoneNumber,
   date,
   companyId,
-  providerName
+  providerName,
 ) => await post(
   `/appointments/`,
   {
@@ -28,9 +28,32 @@ export const getById = async (appointmentId) => await get(
   `/appointments/${appointmentId}`
 );
 
-export const getAllByCompanyId = async (companyId) => await get(
-  `/appointments/company/${companyId}`
-);
+export const getAllByCompanyId = async (companyId) => {
+  console.log(companyId)
+  const payload = await get(`/appointments/company/${companyId}`);
+  if (payload.error)
+    return payload
+
+  const appointments = []
+  console.log(payload)
+  payload.map((a) => {
+
+    let appointment = {
+      firstName: a.first_name,
+      lastName: a.last_name,
+      phoneNumber: a.phone_number,
+      date: moment(a.date).format('MMM Do YYYY'),
+      time: moment(a.date).format('h:mm a'),
+      providerName: a.provider_name,
+    }
+    appointments.push(appointment)
+  })
+
+  console.log("what the actual fuckk")
+  console.log(appointments)
+
+  return appointments
+}
 
 export const deleteByAppointmentId = async (appointmentId) => await del(
   `/appointments/${appointmentId}`
@@ -55,4 +78,3 @@ export const update = async (appointmentId, fields) => {
   };
   return await put(`/appointments/${appointmentId}`, data)
 };
-

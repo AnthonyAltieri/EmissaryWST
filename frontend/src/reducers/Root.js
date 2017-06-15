@@ -11,6 +11,7 @@ import Overlay from './Overlay';
 import Credentials from './Credentials'
 import Company from './Company';
 import Appointments from './Appointments';
+import Appointment from './Appointment';
 
 const root = combineReducers({
   router: routerReducer,
@@ -24,4 +25,3 @@ const root = combineReducers({
 });
 
 export default root;
-
