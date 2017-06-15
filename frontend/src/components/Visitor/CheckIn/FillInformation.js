@@ -19,7 +19,7 @@ class FillInformation extends Component {
           </FontIcon>
           <p>Back</p>
         </div>
-        <Form />
+        <Form {...this.props}/>
       </div>
     );
   }
