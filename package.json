@@ -10,7 +10,7 @@
   "scripts": {
     "start": "gulp backend:babel && nodemon backend/dist/app.js",
     "test": "gulp test:server",
-    "install-frontend": "cd frontend && npm i && cd ..",
+    "install-frontend": "cd frontend && npm run install-prod && cd ..",
     "watch-backend": "gulp backend:watch",
     "build-backend": "gulp backend:babel",
     "build-frontend": "cd frontend && npm run build",
