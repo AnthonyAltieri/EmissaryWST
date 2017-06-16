@@ -29,10 +29,12 @@ https://cse112-1-staging.herokuapp.com/
 
 **Step 2:** Run `npm install` in the directory of the project to install the dependency for the backend.
 
-**Step 3:** Run `gulp test:server` to test the backend API.
+**Step 3:** Run `npm install-frontend` to install the frontend dependencies
 
-**Prestep 4:** Run `gulp test:client-setup` to setup local e2e testing (ONLY DO THIS ONCE).
+**Step 4:** Run `gulp test:server` to test the backend API.
 
-**Step 4:** Run `gulp test:client` to run e2e tests.
+**Prestep 5:** Run `gulp test:client-setup` to setup local e2e testing (ONLY DO THIS ONCE).
 
-**Step 5:** Run `npm start` to start the application.
+**Step 5:** Run `gulp test:client` to run e2e tests.
+
+**Step 6:** Run `npm start` to start the application (Can be found at localhost:3000).
