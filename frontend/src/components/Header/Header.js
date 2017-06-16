@@ -58,37 +58,40 @@ class Header extends Component {
             label="Metrics"
             className="headerOverlayButton"
             onTouchTap={() => navigateAndHideOverlay('/employee/metrics')}
-            primary
+            secondary
+            style={{
+              marginTop: 12,
+            }}
           />
           <RaisedButton
             label="Visitors"
             className="headerOverlayButton"
             onTouchTap={() => navigateAndHideOverlay('/employee/visitors')}
-            primary
+            secondary
           />
           <RaisedButton
             label="Employees"
             className="headerOverlayButton"
             onTouchTap={() => navigateAndHideOverlay('/employee/employees')}
-            primary
+            secondary
           />
           <RaisedButton
             label="Appointments"
             className="headerOverlayButton"
             onTouchTap={() => navigateAndHideOverlay('/employee/appointments')}
-            primary
+            secondary
           />
           <RaisedButton
             label="Forms"
             className="headerOverlayButton"
             onTouchTap={() => navigateAndHideOverlay('/employee/forms')}
-            primary
+            secondary
           />
           <RaisedButton
             label="Settings"
             className="headerOverlayButton"
             onTouchTap={() => navigateAndHideOverlay('/employee/settings')}
-            primary
+            secondary
           />
         </OverlayCard>
       </div>
