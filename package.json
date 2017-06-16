@@ -10,9 +10,11 @@
   "scripts": {
     "start": "gulp backend:babel && nodemon backend/dist/app.js",
     "test": "gulp test:server",
-    "watch-frontend": "gulp frontend:combined",
+    "install-frontend": "cd frontend && npm run install-prod && npm run build",
     "watch-backend": "gulp backend:watch",
-    "build-backend": "gulp backend:babel"
+    "build-backend": "gulp backend:babel",
+    "build-frontend": "npm run install-frontend",
+    "heroku-postbuild": "npm run build-backend && npm run build-frontend"
   },
   "dependencies": {
     "async": "0.9.0",
@@ -23,12 +25,12 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-3": "^6.24.1",
-    "bcrypt-nodejs": "0.0.3",
     "body-parser": "1.10.1",
     "chai": "1.10.0",
     "config": "^1.26.1",
     "cookie-parser": "1.3.3",
     "cors": "2.5.3",
+    "cron": "^1.2.1",
     "del": "1.1.1",
     "errorhandler": "1.3.2",
     "express": "4.11.0",
@@ -41,11 +43,13 @@
     "gulp-jshint": "1.9.2",
     "gulp-mocha": "2.0.0",
     "gulp-nodemon": "1.0.5",
+    "gulp-shell": "^0.3.0",
     "gulp-sourcemaps": "^2.6.0",
     "iconv-lite": "0.4.13",
     "jshint-stylish": "1.0.1",
     "jwt-simple": "0.2.0",
     "lodash": "4.0.0",
+    "moment": "^2.18.1",
     "mongoose": "4.1.0",
     "morgan": "1.5.1",
     "newrelic": "1.25.4",
@@ -65,11 +69,10 @@
     "wiredep": "2.2.2"
   },
   "devDependencies": {
-    "gulp-shell": "^0.3.0",
     "mocha": "2.1.0",
     "selenium-webdriver": "^3.4.0"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "6.11.x"
   }
 }
