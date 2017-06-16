@@ -57,7 +57,7 @@ switch (process.env.npm_lifecycle_event) {
     config = merge(
       common,
       {
-        devtool: 'cheap-eval-source-map',
+        // devtool: 'cheap-eval-source-map',
         plugins: [
           new HtmlWebpackPlugin({
             title: 'Emissary',
