@@ -15,6 +15,21 @@ import AddAppointmentOverlay from './AddAppointmentOverlay';
 import Fab from '../../Buttons/Fab';
 import { toastr } from 'react-redux-toastr';
 
+function transformAppointmentList(appointmentList) {
+  if (appointmentList.length == 0)
+    return appointmentList;
+  let visitorRows = appointmentList.map( function (appt) {
+    let checkedIn = (appt.checkIn) ? "Yes":"No";
+    return {
+      ...appt,
+      checkIn: checkedIn,
+    };
+  });
+
+  return visitorRows;
+
+
+}
 
 const headers = [
   {
@@ -41,6 +56,10 @@ const headers = [
     display: 'Time',
     key: 'time'
   },
+  {
+    display: 'Checked In',
+    key: 'checkIn'
+  },
 ]
 
 
@@ -50,7 +69,7 @@ class Appointments extends Component {
     console.log('componentDidMount()');
     try {
       const payload = await AppointmentsApi.getAllByCompanyId(companyId);
-      console.log(payload)
+      console.log("APPOINTMENT PAYLOAD", payload)
       if (payload.error) {
 
         toastr.error('Error fetching appointments try again later');
@@ -83,7 +102,7 @@ class Appointments extends Component {
         <SectionHeader text="Appointments"/>
         <div className="tableContainer withFab">
           <ResponsiveTable
-            rows={appointmentList}
+            rows={transformAppointmentList(appointmentList)}
             headers={headers}
             containerClassName="tableContainer"
           />
