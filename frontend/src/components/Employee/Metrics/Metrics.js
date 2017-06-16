@@ -84,7 +84,7 @@ class Metrics extends Component {
       const payload = await VisitorsApi.getAllByCompanyId(companyId);
       console.log("PAYLOAD", payload)
       if (payload.error) {
-        t//oastr.error('Error fetching visitors try again later');
+        //toastr.error('Error fetching visitors try again later');
         return;
       }
 
