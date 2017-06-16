@@ -9,7 +9,7 @@
     "stats": "webpack --profile --json > stats.json",
     "build": "webpack --progress --colors",
     "clean": "rm -rf dist",
-    "install-prod": "NODE_ENV=development && npm i && NODE_ENV=production",
+    "install-prod": "NODE_ENV=development && npm i",
     "dev-server": "webpack-dev-server --colors"
   },
   "author": "Anthony Altieri (github: AnthonyAltieri)",
