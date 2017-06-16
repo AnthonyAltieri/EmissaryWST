@@ -14,11 +14,10 @@ import { toastr } from 'react-redux-toastr';
 
 
 function transformVisitorList(visitorList) {
-  console.log("VLLLL", visitorList)
   if (visitorList.length == 0)
     return visitorList;
   let visitorRows = visitorList.visitors.map( function (visitor) {
-    let appointmentTime = "";
+    let appointmentTime = "No Appointment Set";
 
     if (visitor.appointments.length > 0)
     {
@@ -64,7 +63,7 @@ class Visitors extends Component {
       const payload = await VisitorsApi.getAllByCompanyId(companyId);
       console.log("PAYLOAD", payload)
       if (payload.error) {
-        toastr.error('Error fetching appointments try again later');
+        toastr.error('Error fetching visitors try again later');
         return;
       }
 
@@ -72,7 +71,7 @@ class Visitors extends Component {
       // Do stuff with payload, probably send an action to populate state
 
     } catch (e) {
-      toastr.error('Error fetching appointments try again later');
+      toastr.error('Error fetching visitors try again later');
     }
 
   }
