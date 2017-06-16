@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import MaterialFab from 'material-ui/FloatingActionButton';
+import colors from '../../colors';
 
 const Tooltip = ({ text, isShowing }) => isShowing
   ? (
@@ -63,6 +64,7 @@ class OptionMiniFab extends Component {
             mini
             onMouseEnter={this.onMouseEnter.bind(this)}
             onMouseLeave={this.onMouseLeave.bind(this)}
+            backgroundColor={colors.bright}
           >
             <p
               style={{
