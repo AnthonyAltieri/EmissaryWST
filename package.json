@@ -10,10 +10,11 @@
   "scripts": {
     "start": "gulp backend:babel && nodemon backend/dist/app.js",
     "test": "gulp test:server",
-    "install-all": "npm i && cd frontend && npm i && cd ..",
+    "install-frontend": "cd frontend && npm i && cd ..",
     "watch-backend": "gulp backend:watch",
     "build-backend": "gulp backend:babel",
-    "build-frontend": "cd frontend && npm run build"
+    "build-frontend": "cd frontend && npm run build",
+    "heroku-postbuild": "npm run install-frontend && npm run build-backend && npm run build-frontend"
   },
   "dependencies": {
     "async": "0.9.0",
@@ -42,6 +43,7 @@
     "gulp-jshint": "1.9.2",
     "gulp-mocha": "2.0.0",
     "gulp-nodemon": "1.0.5",
+    "gulp-shell": "^0.3.0",
     "gulp-sourcemaps": "^2.6.0",
     "iconv-lite": "0.4.13",
     "jshint-stylish": "1.0.1",
@@ -67,11 +69,10 @@
     "wiredep": "2.2.2"
   },
   "devDependencies": {
-    "gulp-shell": "^0.3.0",
     "mocha": "2.1.0",
     "selenium-webdriver": "^3.4.0"
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "6.11.x"
   }
 }

@@ -7,6 +7,9 @@ const initialState = {
   type: undefined,
 };
 
+/**
+* Based on action, lets user choose their user type of visitor or employee
+*/
 const User = (state = initialState, action) => {
   switch (action.type) {
     case 'CHOOSE_USER_TYPE':
