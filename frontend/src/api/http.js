@@ -21,9 +21,9 @@ const DEFAULT_DEVELOPMENT_PORT = 4941;
 
 // NOTE: You probably are going to need to change the staging/production
 // host/port to wherever you are actually deploying to
-const STAGING_HOST = 'https://cse112-1-staging.herokuapp.com/';
+const STAGING_HOST = 'cse112-1-staging.herokuapp.com/';
 const STAGING_PORT = 80;
-const PRODUCTION_HOST = 'https://team1-emissary.herokuapp.com/';
+const PRODUCTION_HOST = 'team1-emissary.herokuapp.com/';
 const PRODUCTION_PORT = 80;
 
 
