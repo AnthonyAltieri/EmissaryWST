@@ -22,9 +22,9 @@ const DEFAULT_DEVELOPMENT_PORT = 4941;
 // NOTE: You probably are going to need to change the staging/production
 // host/port to wherever you are actually deploying to
 const STAGING_HOST = 'cse112-1-staging.herokuapp.com';
-const STAGING_PORT = 80;
+const STAGING_PORT = 443;
 const PRODUCTION_HOST = 'team1-emissary.herokuapp.com';
-const PRODUCTION_PORT = 80;
+const PRODUCTION_PORT = 443;
 
 
 console.log('process.env.NODE_ENV', process.env.NODE_ENV);
@@ -47,7 +47,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // Initialize an axios instance with our custom information
 const instance = axios.create({
-  baseURL: `http://${host}:${port}/api`,
+  baseURL: `https://${host}:${port}/api`,
   timeout: DEFAULT_REQUEST_TIMEOUT,
   // You might want to add a header with a security token (check axios docs)
 });
