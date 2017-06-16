@@ -25,6 +25,7 @@
     "html-webpack-plugin": "^2.25.0",
     "material-ui": "^0.16.1",
     "moment": "^2.18.1",
+    "pondjs": "^0.8.6",
     "purifycss-webpack-plugin": "^2.0.3",
     "query-string": "^4.3.4",
     "react": "^15.3.2",
@@ -36,6 +37,8 @@
     "react-router-dom": "^4.0.0",
     "react-router-redux": "^5.0.0-alpha.4",
     "react-tap-event-plugin": "^2.0.1",
+    "react-timeseries-charts": "^0.12.5",
+    "react-youtube": "^7.3.0",
     "redux": "^3.5.2",
     "shortid": "^2.2.6",
     "uuid": "^2.0.3"

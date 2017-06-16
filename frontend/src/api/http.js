@@ -15,7 +15,7 @@ import queryString from 'query-string';
  */
 
 // In milliseconds
-const DEFAULT_REQUEST_TIMEOUT = 1000;
+const DEFAULT_REQUEST_TIMEOUT = 100000;
 
 const DEFAULT_DEVELOPMENT_PORT = 4941;
 
