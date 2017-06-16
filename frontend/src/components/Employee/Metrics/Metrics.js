@@ -84,7 +84,7 @@ class Metrics extends Component {
       const payload = await VisitorsApi.getAllByCompanyId(companyId);
       console.log("PAYLOAD", payload)
       if (payload.error) {
-        toastr.error('Error fetching visitors try again later');
+        t//oastr.error('Error fetching visitors try again later');
         return;
       }
 
@@ -92,7 +92,7 @@ class Metrics extends Component {
       // Do stuff with payload, probably send an action to populate state
 
     } catch (e) {
-      toastr.error('Error fetching visitors try again later');
+      //toastr.error('Error fetching visitors try again later');
     }
 
     // get appointments
@@ -100,7 +100,7 @@ class Metrics extends Component {
       const payload = await AppointmentsApi.getAllByCompanyId(companyId);
       console.log("APPOINTMENT PAYLOAD", payload)
       if (payload.error) {
-        toastr.error('Error fetching appointments try again later');
+        //toastr.error('Error fetching appointments try again later');
         return;
       }
 
@@ -108,7 +108,7 @@ class Metrics extends Component {
       // Do stuff with payload, probably send an action to populate state
 
     } catch (e) {
-      toastr.error('Error fetching appointments try again later');
+      //toastr.error('Error fetching appointments try again later');
     }
 
   }
